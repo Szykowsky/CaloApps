@@ -37,7 +37,6 @@ namespace CaloApps.Meals.Commands
                 await dbContext.SaveChangesAsync(cancellationToken);
 
                 return new RequestStatus(true, "Added new meal");
-
             }
 
         }
