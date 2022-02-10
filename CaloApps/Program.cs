@@ -20,6 +20,8 @@ builder.Services.AddDbContext<CaloContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CaloConnection"));
 });
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
+
 
 var app = builder.Build();
 
@@ -32,6 +34,8 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
