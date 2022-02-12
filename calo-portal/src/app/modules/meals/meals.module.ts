@@ -5,20 +5,14 @@ import { MealListComponent } from './components/meal-list/meal-list.component';
 import { MealApiService } from './api/meal-api.service';
 import { MealsFacade } from './meals.facade';
 import { MealsRoutingModule } from './meals.routing-module';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { MaterialModule } from 'src/app/shared/modules/material.module';
 
 @NgModule({
     declarations: [MealsComponent, MealListComponent],
     imports: [
         CommonModule,
         MealsRoutingModule,
-        MatCardModule,
-        MatIconModule,
-        MatButtonModule,
-        MatGridListModule
+        MaterialModule,
     ],
     providers: [MealApiService, MealsFacade],
 })
