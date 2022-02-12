@@ -8,7 +8,7 @@ namespace CaloApps.Meals.Queries
     {
         public class Query : IRequest<IEnumerable<MealDto>>
         {
-            public Guid UserId { get; set; }
+            public Guid DietId { get; set; }
         }
 
         public class MealDto
@@ -30,7 +30,7 @@ namespace CaloApps.Meals.Queries
             public async Task<IEnumerable<MealDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 return await this.dbContext.Meals
-                    .Where(m => m.UserId == request.UserId)
+                    .Where(m => m.DietId == request.DietId)
                     .Select(m => new MealDto
                     {
                         Kcal = m.Kcal,

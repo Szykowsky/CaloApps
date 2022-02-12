@@ -8,10 +8,10 @@ namespace CaloApps.Data.Models
         public int Kcal { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
-        public Guid UserId { get; set; }
+        public Guid DietId { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        [ForeignKey("DietId")]
+        public virtual Diet Diet { get; set; }
 
     }
 }

@@ -12,7 +12,7 @@ namespace CaloApps.Meals.Commands
             public int Kcal { get; set; }
             public string Name { get; set; }
             public DateTime Date { get; set; }
-            public Guid UserId { get; set; }
+            public Guid DietId { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, RequestStatus>
@@ -30,7 +30,7 @@ namespace CaloApps.Meals.Commands
                     Kcal = request.Kcal,
                     Name = request.Name,
                     Date = request.Date,
-                    UserId = request.UserId,
+                    DietId = request.DietId,
                 };
 
                 await this.dbContext.AddAsync(meal, cancellationToken);

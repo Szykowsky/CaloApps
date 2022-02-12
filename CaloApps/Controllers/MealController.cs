@@ -23,10 +23,10 @@ namespace CaloApps.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetMeals([FromRoute] Guid userId)
+        [HttpGet("{dietId}")]
+        public async Task<IActionResult> GetMeals([FromRoute] Guid dietId)
         {
-            var result = await this.mediator.Send(new GetMeals.Query { UserId = userId });
+            var result = await this.mediator.Send(new GetMeals.Query { DietId = dietId });
             return Ok(result);
         }
     }
