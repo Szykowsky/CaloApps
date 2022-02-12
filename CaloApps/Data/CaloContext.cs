@@ -27,6 +27,13 @@ namespace CaloApps.Data
                 meal.Property(t => t.Id).ValueGeneratedOnAdd();
                 meal.HasOne(t => t.User).WithMany().HasForeignKey(t => t.UserId);
             });
+
+            modelBuilder.Entity<Diet>(diet =>
+            {
+                diet.HasKey(t => t.Id);
+                diet.Property(t => t.Id).ValueGeneratedOnAdd();
+                diet.HasOne(t => t.User).WithMany().HasForeignKey(t => t.UserId);
+            });
         }
     }
 }
