@@ -1,4 +1,5 @@
 ﻿using CaloApps.Data;
+using CaloApps.Meals.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ namespace CaloApps.Meals.Queries
         public class Query : IRequest<IEnumerable<MealDto>>
         {
             public Guid DietId { get; set; }
+            public MealsSearch? MealsSearchModel { get; set; }
         }
 
         public class MealDto
