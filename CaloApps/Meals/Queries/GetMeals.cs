@@ -1,5 +1,7 @@
 ﻿using CaloApps.Data;
+using CaloApps.Meals.Extensions;
 using CaloApps.Meals.Models;
+using CaloApps.Shared.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,21 +9,19 @@ namespace CaloApps.Meals.Queries
 {
     public class GetMeals
     {
-        public class Query : IRequest<IEnumerable<MealDto>>
+        public class Query : IRequest<QueryMealsResult>
         {
             public Guid DietId { get; set; }
-            public MealsSearch? MealsSearchModel { get; set; }
+            public MealsFilter? MealsFilterModel { get; set; }
         }
 
-        public class MealDto
+        public class QueryMealsResult
         {
-            public Guid Id { get; set; }
-            public int Kcal { get; set; }
-            public string Name { get; set; }
-            public DateTime Date { get; set; }
+            public IEnumerable<MealDto> QueryResult { get; set; }
+            public PaginationBase PaginationBase { get; set; }
 
         }
-        public class Handler : IRequestHandler<Query, IEnumerable<MealDto>>
+        public class Handler : IRequestHandler<Query, QueryMealsResult>
         {
             private readonly CaloContext dbContext;
 
@@ -29,18 +29,38 @@ namespace CaloApps.Meals.Queries
             {
                 this.dbContext = dbContext;
             }
-            public async Task<IEnumerable<MealDto>> Handle(Query request, CancellationToken cancellationToken)
+
+            public async Task<QueryMealsResult> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await this.dbContext.Meals
+                var meals = this.dbContext.Meals
+                    .OrderBy(m => m.Date)
                     .Where(m => m.DietId == request.DietId)
-                    .Select(m => new MealDto
+                    .AsQueryable();
+
+                if(request.MealsFilterModel == null)
+                {
+                    return await meals.SelectMealDto().GetPagedResult(1,10, cancellationToken);
+                }
+
+                if(request.MealsFilterModel.DateType != DateType.None)
+                {
+                    switch (request.MealsFilterModel.DateType)
                     {
-                        Kcal = m.Kcal,
-                        Name = m.Name,
-                        Date = m.Date,
-                        Id = m.Id
-                    })
-                    .ToListAsync(cancellationToken);
+                        case DateType.Day:
+                            meals = meals.Where(m => m.Date.Day == request.MealsFilterModel.DayNumber);
+                            break;
+                        case DateType.Month:
+                            meals = meals.Where(m => m.Date.Month == request.MealsFilterModel.MonthNumber);
+                            break;
+                        case DateType.DayMonth:
+                            meals = meals.Where(m => m.Date.Day == request.MealsFilterModel.DayNumber && m.Date.Month == request.MealsFilterModel.MonthNumber);
+                            break;
+                    }
+                }
+
+                return await meals
+                    .SelectMealDto()
+                    .GetPagedResult(1, 10, cancellationToken);
             }
         }
     }
