@@ -1,7 +1,9 @@
 ﻿using CaloApps.Data;
+using CaloApps.Data.Models;
 using CaloApps.Meals.Extensions;
 using CaloApps.Meals.Models;
 using CaloApps.Shared.Models;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +23,31 @@ namespace CaloApps.Meals.Queries
             public PaginationBase PaginationBase { get; set; }
 
         }
+
+        public class GetMealsValidator : AbstractValidator<Query>
+        {
+            public GetMealsValidator()
+            {
+                RuleFor(x => x.DietId)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("You have to add diet id");
+
+                When(x => x.MealsFilterModel != null, () =>
+                {
+                    RuleFor(z => z.MealsFilterModel.DateType)
+                        .NotNull()
+                        .WithMessage("You have to pass correct date type");
+                    RuleFor(z => z.MealsFilterModel.DayNumber)
+                        .InclusiveBetween(1, 31)
+                        .WithMessage("Day may be from 1 to 10");
+                    RuleFor(z => z.MealsFilterModel.MonthNumber)
+                        .InclusiveBetween(1, 12)
+                        .WithMessage("Day may be from 1 to 12");
+                });
+            }
+        }
+
         public class Handler : IRequestHandler<Query, QueryMealsResult>
         {
             private readonly CaloContext dbContext;
@@ -37,26 +64,14 @@ namespace CaloApps.Meals.Queries
                     .Where(m => m.DietId == request.DietId)
                     .AsQueryable();
 
-                if(request.MealsFilterModel == null)
+                if(request.MealsFilterModel == null || request.MealsFilterModel.DateType == DateType.None)
                 {
-                    return await meals.SelectMealDto().GetPagedResult(1,10, cancellationToken);
+                    return await meals
+                        .SelectMealDto()
+                        .GetPagedResult(1,10, cancellationToken);
                 }
 
-                if(request.MealsFilterModel.DateType != DateType.None)
-                {
-                    switch (request.MealsFilterModel.DateType)
-                    {
-                        case DateType.Day:
-                            meals = meals.Where(m => m.Date.Day == request.MealsFilterModel.DayNumber);
-                            break;
-                        case DateType.Month:
-                            meals = meals.Where(m => m.Date.Month == request.MealsFilterModel.MonthNumber);
-                            break;
-                        case DateType.DayMonth:
-                            meals = meals.Where(m => m.Date.Day == request.MealsFilterModel.DayNumber && m.Date.Month == request.MealsFilterModel.MonthNumber);
-                            break;
-                    }
-                }
+                meals = meals.GetMealsQueryFilter(request.MealsFilterModel);
 
                 return await meals
                     .SelectMealDto()
