@@ -40,7 +40,7 @@ namespace CaloApps.Meals.Queries
                         .WithMessage("You have to pass correct date type");
                     RuleFor(z => z.MealsFilterModel.DayNumber)
                         .InclusiveBetween(1, 31)
-                        .WithMessage("Day may be from 1 to 10");
+                        .WithMessage("Day may be from 1 to 31");
                     RuleFor(z => z.MealsFilterModel.MonthNumber)
                         .InclusiveBetween(1, 12)
                         .WithMessage("Day may be from 1 to 12");
