@@ -1,9 +1,5 @@
-﻿using CaloApps.Shared.Models;
-using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using FluentValidation;
 using SendGrid.Helpers.Errors.Model;
-using System.Net;
 using System.Text.Json;
 
 namespace CaloApps.Middlewares.Shared
