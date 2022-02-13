@@ -1,1 +1,3 @@
-<calo-meal-list [meals]="meals$ | async"></calo-meal-list>
+<div *ngIf="meals$ | async as meals">
+    <calo-meal-list [meals]="meals.queryResult"></calo-meal-list>
+</div>

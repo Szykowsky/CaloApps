@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Meal } from '../models/meals-model';
+import { Datetype } from '../models/meals-filter-model';
+import { Meal, MealsQueryResult } from '../models/meals-model';
 
 @Injectable()
 export class MealApiService {
@@ -9,7 +10,18 @@ export class MealApiService {
 
     constructor(private http: HttpClient) {}
 
-    getMeals(userId: string): Observable<Meal[]> {
-        return this.http.get<Meal[]>(`${this.API}/${userId}`);
+    getMeals(
+        dietId: string,
+        dateType: Datetype,
+        dayNumber: number | null,
+        monthNumber: number | null
+    ): Observable<MealsQueryResult> {
+        const dayNumberQuery = dayNumber ? `dayNumber=${dayNumber}` : ``;
+        const monthNumberQuery = monthNumber
+            ? `monthNumber=${monthNumber}`
+            : ``;
+        const query = `dateType=${dateType}&${dayNumberQuery}&${monthNumberQuery}`;
+
+        return this.http.get<MealsQueryResult>(`${this.API}/${dietId}?${query}`);
     }
 }
