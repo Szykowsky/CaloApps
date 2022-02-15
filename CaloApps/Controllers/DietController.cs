@@ -16,9 +16,16 @@ namespace CaloApps.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMealAsync([FromBody] AddDiet.Command addDietCommand)
+        public async Task<IActionResult> AddDietAsync([FromBody] AddDiet.Command addDietCommand)
         {
             var result = await this.mediator.Send(addDietCommand);
+            return Ok(result);
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetDietsAsync([FromQuery] Guid userId)
+        {
+            var result = await this.mediator.Send(userId);
             return Ok(result);
         }
     }

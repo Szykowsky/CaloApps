@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CaloApps.Migrations
 {
     [DbContext(typeof(CaloContext))]
-    [Migration("20220212183954_AddDietForeignKeyToMealTable")]
-    partial class AddDietForeignKeyToMealTable
+    [Migration("20220215170219_AddDietsTable")]
+    partial class AddDietsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,7 +62,7 @@ namespace CaloApps.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Diet");
+                    b.ToTable("Diets");
                 });
 
             modelBuilder.Entity("CaloApps.Data.Models.Meal", b =>

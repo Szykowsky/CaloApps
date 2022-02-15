@@ -60,7 +60,7 @@ namespace CaloApps.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Diet");
+                    b.ToTable("Diets");
                 });
 
             modelBuilder.Entity("CaloApps.Data.Models.Meal", b =>
