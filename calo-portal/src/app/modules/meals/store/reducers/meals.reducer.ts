@@ -8,6 +8,7 @@ export interface MealState {
     isLoading: boolean;
     isError: boolean;
     meals: MealsQueryResult;
+    diets: { key: string; value: string } | null;
     error: any;
 }
 
@@ -16,16 +17,32 @@ const initialState: MealState = {
     isError: false,
     meals: {
         paginationBase: null,
-        queryResult: []
+        queryResult: [],
     },
+    diets: null,
     error: null,
 };
 
 const mealsReducer = createReducer(
     initialState,
     on(MealsActions.fetchMeals, (state) => ({ ...state, isLoading: true })),
-    on(MealsActions.fetchMealsSuccess, (state, { meals }) => ({ ...state, meals })),
-    on(MealsActions.fetchMealsFail, (state, { error }) => ({ ...state, isError: true }))
+    on(MealsActions.fetchMealsSuccess, (state, { meals }) => ({
+        ...state,
+        meals,
+    })),
+    on(MealsActions.fetchMealsFail, (state, { error }) => ({
+        ...state,
+        isError: true,
+    })),
+    on(MealsActions.fetchDiets, (state) => ({ ...state, isLoading: true })),
+    on(MealsActions.fetchDietsSuccess, (state, { diets }) => ({
+        ...state,
+        diets,
+    })),
+    on(MealsActions.fetchDietsFail, (state, { error }) => ({
+        ...state,
+        isError: true,
+    }))
 );
 
 export function reducer(state: MealState, action: Action) {

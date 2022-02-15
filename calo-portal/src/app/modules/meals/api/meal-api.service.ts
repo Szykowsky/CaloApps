@@ -22,6 +22,14 @@ export class MealApiService {
             : ``;
         const query = `dateType=${dateType}&${dayNumberQuery}&${monthNumberQuery}`;
 
-        return this.http.get<MealsQueryResult>(`${this.API}/${dietId}?${query}`);
+        return this.http.get<MealsQueryResult>(
+            `${this.API}/${dietId}?${query}`
+        );
+    }
+
+    getDiets(userId: string): Observable<{ key: string; value: string }> {
+        return this.http.get<{ key: string; value: string }>(
+            `${this.API}/diets/${userId}`
+        );
     }
 }

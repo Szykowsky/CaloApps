@@ -22,6 +22,20 @@ export class MealsEffects {
         )
     );
 
+    loadDiets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(MealsActionTypes.FetchDiets),
+            switchMap(({ userId }) =>
+                this.mealsApiService.getDiets(userId)
+                    .pipe(
+                        map((diets: { key: string; value: string }) =>
+                            MealsActions.fetchDietsSuccess({ diets })
+                        )
+                    )
+            )
+        )
+    );
+
     constructor(
         private actions$: Actions,
         private mealsApiService: MealApiService
