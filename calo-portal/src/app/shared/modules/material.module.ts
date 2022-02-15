@@ -4,6 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
     imports: [
@@ -11,14 +13,18 @@ import { MatGridListModule } from '@angular/material/grid-list';
         MatIconModule,
         MatButtonModule,
         MatCardModule,
-        MatGridListModule
+        MatGridListModule,
+        MatFormFieldModule,
+        MatInputModule,
     ],
     exports: [
         MatToolbarModule,
         MatIconModule,
         MatButtonModule,
         MatCardModule,
-        MatGridListModule
+        MatGridListModule,
+        MatFormFieldModule,
+        MatInputModule,
     ]
 })
 export class MaterialModule {}
