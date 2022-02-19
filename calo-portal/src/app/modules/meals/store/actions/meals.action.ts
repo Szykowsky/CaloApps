@@ -40,7 +40,7 @@ export const fetchDiets = createAction(
 
 export const fetchDietsSuccess = createAction(
     MealsActionTypes.FetchDietsSuccess,
-    props<{ diets: { key: string; value: string } }>()
+    props<{ diets: { key: string; value: string }[] }>()
 );
 
 export const fetchDietsFail = createAction(

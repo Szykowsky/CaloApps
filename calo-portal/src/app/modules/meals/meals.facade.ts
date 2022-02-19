@@ -12,6 +12,8 @@ export class MealsFacade {
     readonly meals$: Observable<MealsQueryResult> = this.store.select(
         fromMealsSelectors.selectMeals
     );
+    readonly diets$: Observable<{ key: string; value: string }[] | null> =
+        this.store.select(fromMealsSelectors.selectDiets);
 
     constructor(private store: Store<MealState>) {}
 
@@ -26,6 +28,10 @@ export class MealsFacade {
         this.dispatch(
             MealActions.fetchMeals({ dietId, dateType, dayNumer, monthNumber })
         );
+    }
+
+    getDiets(userId: string) {
+        this.dispatch(MealActions.fetchDiets({ userId }));
     }
 
     private dispatch(action: Action): void {

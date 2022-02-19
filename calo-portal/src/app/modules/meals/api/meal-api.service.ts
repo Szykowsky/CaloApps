@@ -27,8 +27,8 @@ export class MealApiService {
         );
     }
 
-    getDiets(userId: string): Observable<{ key: string; value: string }> {
-        return this.http.get<{ key: string; value: string }>(
+    getDiets(userId: string): Observable<{ key: string; value: string }[]> {
+        return this.http.get<{ key: string; value: string }[]>(
             `${this.API}/diets/${userId}`
         );
     }

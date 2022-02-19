@@ -28,7 +28,7 @@ export class MealsEffects {
             switchMap(({ userId }) =>
                 this.mealsApiService.getDiets(userId)
                     .pipe(
-                        map((diets: { key: string; value: string }) =>
+                        map((diets: { key: string; value: string }[]) =>
                             MealsActions.fetchDietsSuccess({ diets })
                         )
                     )

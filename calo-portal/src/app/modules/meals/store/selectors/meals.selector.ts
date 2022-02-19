@@ -7,3 +7,9 @@ export const selectMeals = createSelector(
     selectMealsFeatureState,
     (state: fromMeals.MealState) => state.meals
 );
+
+export const selectDiets = createSelector(
+    selectMealsFeatureState,
+    (state: fromMeals.MealState) => state.diets
+);
+

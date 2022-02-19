@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'calo-add-meal-form',
@@ -6,11 +7,21 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./add-meal-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddMealFormComponent implements OnInit {
+export class AddMealFormComponent {
+  addMealForm: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    this.addMealForm = this.fb.group(
+      {
+        diet: [null, [Validators.required]],
+        name: [null, [Validators.required]],
+        kcal: [null, [Validators.required]],
+        date: [Date.now, [Validators.required]]
+      })
+   }
 
-  ngOnInit(): void {
+  addMeal() {
+    console.log(this.addMealForm.value, 'addMeal()');
   }
 
 }

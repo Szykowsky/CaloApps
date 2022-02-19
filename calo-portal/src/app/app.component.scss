@@ -5,3 +5,16 @@
 .main-container {
     margin: 24px;
 }
+
+.add-button {
+    position: fixed;
+    bottom: 64px;
+    right: 64px;
+}
+
+mat-toolbar { 
+    -webkit-box-shadow: -1px 14px 52px -15px #fff;
+    -moz-box-shadow: -1px 14px 52px -15px #fff;
+    box-shadow: -1px 14px 52px -15px #fff;
+    margin-bottom: 64px;
+}

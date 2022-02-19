@@ -8,7 +8,7 @@ export interface MealState {
     isLoading: boolean;
     isError: boolean;
     meals: MealsQueryResult;
-    diets: { key: string; value: string } | null;
+    diets: { key: string; value: string }[] | null;
     error: any;
 }
 
