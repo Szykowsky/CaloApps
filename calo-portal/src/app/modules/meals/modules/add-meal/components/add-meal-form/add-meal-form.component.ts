@@ -15,7 +15,7 @@ export class AddMealFormComponent {
       {
         diet: [null, [Validators.required]],
         name: [null, [Validators.required]],
-        kcal: [null, [Validators.required]],
+        kcal: [null, [Validators.required, Validators.min(0)]],
         date: [Date.now, [Validators.required]]
       })
    }
