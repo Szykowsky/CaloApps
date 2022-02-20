@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { MealsFacade } from '../../meals.facade';
 import { Datetype } from '../../models/meals-filter-model';
-import { Meal, MealsQueryResult } from '../../models/meals-model';
+import { MealsQueryResult } from '../../models/meals-model';
 
 @Component({
     selector: 'calo-meals',
@@ -12,11 +12,8 @@ import { Meal, MealsQueryResult } from '../../models/meals-model';
 })
 export class MealsComponent implements OnInit {
     readonly meals$: Observable<MealsQueryResult> = this.mealsFacade.meals$;
-    
-    //meal: Meal = { id: 'qweqwe', date: new Date(), name: 'qweqwe', kcal: 1000 };
-    // readonly meals$: Observable<Meal[]> = of([this.meal, this.meal, this.meal, this.meal, this.meal, this.meal, this.meal]);
 
-    constructor(private mealsFacade: MealsFacade) {}
+    constructor(private mealsFacade: MealsFacade) { }
 
     ngOnInit(): void {
         this.mealsFacade.getMealList({
