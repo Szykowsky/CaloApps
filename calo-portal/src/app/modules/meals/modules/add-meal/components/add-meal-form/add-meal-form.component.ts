@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import {  FormGroup,  } from '@angular/forms';
+import { FormGroup, } from '@angular/forms';
 
 @Component({
   selector: 'calo-add-meal-form',
