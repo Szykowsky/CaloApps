@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {  FormGroup,  } from '@angular/forms';
 
 @Component({
   selector: 'calo-add-meal-form',
@@ -8,20 +8,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddMealFormComponent {
-  addMealForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.addMealForm = this.fb.group(
-      {
-        diet: [null, [Validators.required]],
-        name: [null, [Validators.required]],
-        kcal: [null, [Validators.required, Validators.min(0)]],
-        date: [Date.now, [Validators.required]]
-      })
-   }
+  @Input() addMealForm: FormGroup | undefined;
+  @Output() submitForm: EventEmitter<FormGroup> = new EventEmitter();
 
   addMeal() {
-    console.log(this.addMealForm.value, 'addMeal()');
+    this.submitForm.emit(this.addMealForm?.value);
   }
 
 }
