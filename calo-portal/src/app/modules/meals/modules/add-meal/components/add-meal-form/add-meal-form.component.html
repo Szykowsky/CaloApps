@@ -1,5 +1,5 @@
 <h2>Add meal</h2>
-<form [formGroup]="addMealForm" novalidate class="add-meal-form" (ngSubmit)="addMeal()">
+<form *ngIf="addMealForm" [formGroup]="addMealForm" novalidate class="add-meal-form" (ngSubmit)="addMeal()">
     <mat-form-field appearance="outline">
         <mat-label>Diet</mat-label>
         <input matInput placeholder="Select diet name" formControlName="diet" />
@@ -11,25 +11,16 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
+        <mat-label>Kcal</mat-label>
         <input matInput placeholder="kcal" formControlName="kcal" type="number" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
         <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="datepicker" formControlName="date" />
-        <mat-datepicker-toggle
-            matSuffix
-            [for]="datepicker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #datepicker>
-            <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply>
-                    Apply
-                </button>
-            </mat-datepicker-actions>
-        </mat-datepicker>
+        <input matInput [ngxMatDatetimePicker]="datepicker" formControlName="date" />
+        <mat-datepicker-toggle matSuffix [for]="$any(datepicker)"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #datepicker>
+        </ngx-mat-datetime-picker>
     </mat-form-field>
 
     <button mat-flat-button color="primary">Submit</button>
