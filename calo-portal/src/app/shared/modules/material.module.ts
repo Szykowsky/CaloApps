@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
@@ -32,6 +33,7 @@ import {
         NgxMatNativeDateModule,
         NgxMatTimepickerModule,
         MatSelectModule,
+        MatSnackBarModule,
     ],
     exports: [
         MatToolbarModule,
@@ -47,6 +49,7 @@ import {
         NgxMatNativeDateModule,
         NgxMatTimepickerModule,
         MatSelectModule,
+        MatSnackBarModule,
     ],
     providers: [MatDatepickerModule],
 })

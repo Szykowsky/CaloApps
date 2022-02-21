@@ -5,6 +5,7 @@ import { MealApiService } from '../../api/meal-api.service';
 import { MealsActionTypes } from '../actions/meals.action';
 import * as MealsActions from '../actions/meals.action';
 import { MealsQueryResult } from '../../models/meals-model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class MealsEffects {
@@ -42,19 +43,19 @@ export class MealsEffects {
         this.actions$.pipe(
             ofType(MealsActionTypes.AddMeals),
             switchMap(({ addMealModel }) =>
-                this.mealsApiService
-                    .addMeals(addMealModel)
-                    .pipe(
-                        map(() =>
-                            MealsActions.addMealsSuccess()
-                        )
-                    )
+                this.mealsApiService.addMeals(addMealModel).pipe(
+                    map((value: any) => {
+                        this.snackBar.open(value.message, 'Close');
+                        return MealsActions.addMealsSuccess();
+                    })
+                )
             )
         )
     );
 
     constructor(
         private actions$: Actions,
-        private mealsApiService: MealApiService
+        private mealsApiService: MealApiService,
+        private snackBar: MatSnackBar
     ) {}
 }
