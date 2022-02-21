@@ -16,9 +16,9 @@ namespace CaloApps.Meals.Commands
             public Guid DietId { get; set; }
         }
 
-        public class GetMealsValidator : AbstractValidator<Command>
+        public class AddMealValidator : AbstractValidator<Command>
         {
-            public GetMealsValidator()
+            public AddMealValidator()
             {
                 RuleFor(x => x.DietId)
                     .NotEmpty()

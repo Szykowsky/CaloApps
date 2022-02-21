@@ -1,4 +1,5 @@
 ﻿using CaloApps.Diets.Commands;
+using CaloApps.Diets.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +24,12 @@ namespace CaloApps.Controllers
         }
 
         [HttpGet("{userId}")]
-        public async Task<IActionResult> GetDietsAsync([FromQuery] Guid userId)
+        public async Task<IActionResult> GetDietsAsync([FromRoute] Guid userId)
         {
-            var result = await this.mediator.Send(userId);
+            var result = await this.mediator.Send(new GetDiets.Query
+            {
+                UserId = userId
+            });
             return Ok(result);
         }
     }
