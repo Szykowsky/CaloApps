@@ -9,11 +9,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 import {
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
-    NgxMatTimepickerModule
-  } from '@angular-material-components/datetime-picker';
+    NgxMatTimepickerModule,
+} from '@angular-material-components/datetime-picker';
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import {
         MatNativeDateModule,
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
-        NgxMatTimepickerModule
+        NgxMatTimepickerModule,
+        MatSelectModule,
     ],
     exports: [
         MatToolbarModule,
@@ -43,7 +45,8 @@ import {
         MatDatepickerModule,
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
-        NgxMatTimepickerModule
+        NgxMatTimepickerModule,
+        MatSelectModule,
     ],
     providers: [MatDatepickerModule],
 })

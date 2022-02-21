@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Datetype } from '../models/meals-filter-model';
 import { Meal, MealsQueryResult } from '../models/meals-model';
+import { AddMealModel } from '../modules/add-meal/models/add-meal-model';
 
 @Injectable()
 export class MealApiService {
@@ -27,9 +28,13 @@ export class MealApiService {
         );
     }
 
-    getDiets(userId: string): Observable<{ key: string; value: string }[]> {
-        return this.http.get<{ key: string; value: string }[]>(
-            `${this.API}/diets/${userId}`
+    addMeals(addMealModel: AddMealModel): Observable<any> {
+        return this.http.post(`${this.API}`, addMealModel);
+    }
+
+    getDiets(userId: string): Observable<{ [key: string]: string }> {
+        return this.http.get<{ [key: string]: string }>(
+            `https://localhost:7095/api/diet/${userId}`
         );
     }
 }

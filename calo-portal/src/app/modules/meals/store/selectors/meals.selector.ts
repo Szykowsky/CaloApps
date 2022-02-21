@@ -13,3 +13,8 @@ export const selectDiets = createSelector(
     (state: fromMeals.MealState) => state.diets
 );
 
+export const selectIsLoading = createSelector(
+    selectMealsFeatureState,
+    (state: fromMeals.MealState) => state.isLoading
+);
+

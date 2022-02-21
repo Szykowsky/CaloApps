@@ -1,27 +1,42 @@
-<h2>Add meal</h2>
-<form *ngIf="addMealForm" [formGroup]="addMealForm" novalidate class="add-meal-form" (ngSubmit)="addMeal()">
-    <mat-form-field appearance="outline">
-        <mat-label>Diet</mat-label>
-        <input matInput placeholder="Select diet name" formControlName="diet" />
-    </mat-form-field>
+<div *ngIf="addMealForm">
+    <h2>Add meal</h2>
+    <form
+        [formGroup]="addMealForm"
+        novalidate
+        class="add-meal-form"
+        (ngSubmit)="addMeal()"
+    >
+        <mat-form-field appearance="outline">
+            <mat-label>Diet</mat-label>
+            <mat-select *ngFor="let diet of diets | keyvalue" formControlName="diet">
+                <mat-option [value]="diet.key"> {{ diet.value }} </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Dinner" formControlName="name" />
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-        <mat-label>Kcal</mat-label>
-        <input matInput placeholder="kcal" formControlName="kcal" type="number" />
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Kcal</mat-label>
+            <input matInput formControlName="kcal" type="number" />
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-        <mat-label>Choose a date</mat-label>
-        <input matInput [ngxMatDatetimePicker]="datepicker" formControlName="date" />
-        <mat-datepicker-toggle matSuffix [for]="$any(datepicker)"></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #datepicker>
-        </ngx-mat-datetime-picker>
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Choose a date</mat-label>
+            <input
+                matInput
+                [ngxMatDatetimePicker]="datepicker"
+                formControlName="date"
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="$any(datepicker)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #datepicker> </ngx-mat-datetime-picker>
+        </mat-form-field>
 
-    <button mat-flat-button color="primary">Submit</button>
-</form>
+        <button mat-flat-button color="primary">Submit</button>
+    </form>
+</div>

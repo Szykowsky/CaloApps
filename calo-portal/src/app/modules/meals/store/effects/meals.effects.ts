@@ -12,7 +12,8 @@ export class MealsEffects {
         this.actions$.pipe(
             ofType(MealsActionTypes.FetchMeals),
             switchMap(({ dietId, dateType, dayNumber, monthNumber }) =>
-                this.mealsApiService.getMeals(dietId, dateType, dayNumber, monthNumber)
+                this.mealsApiService
+                    .getMeals(dietId, dateType, dayNumber, monthNumber)
                     .pipe(
                         map((meals: MealsQueryResult) =>
                             MealsActions.fetchMealsSuccess({ meals })
@@ -26,10 +27,26 @@ export class MealsEffects {
         this.actions$.pipe(
             ofType(MealsActionTypes.FetchDiets),
             switchMap(({ userId }) =>
-                this.mealsApiService.getDiets(userId)
+                this.mealsApiService
+                    .getDiets(userId)
                     .pipe(
-                        map((diets: { key: string; value: string }[]) =>
+                        map((diets: { [key: string]: string }) =>
                             MealsActions.fetchDietsSuccess({ diets })
+                        )
+                    )
+            )
+        )
+    );
+
+    addMeal$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(MealsActionTypes.AddMeals),
+            switchMap(({ addMealModel }) =>
+                this.mealsApiService
+                    .addMeals(addMealModel)
+                    .pipe(
+                        map(() =>
+                            MealsActions.addMealsSuccess()
                         )
                     )
             )

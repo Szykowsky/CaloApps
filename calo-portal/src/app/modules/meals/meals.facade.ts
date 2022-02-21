@@ -4,16 +4,21 @@ import { Observable } from 'rxjs';
 import { MealsQueryResult } from './models/meals-model';
 import { MealState } from './store/reducers/meals.reducer';
 import { Datetype } from './models/meals-filter-model';
-import { fromMealsSelectors } from './store';
+import { fromMealsSelectors, MealsActions } from './store';
 import * as MealActions from './store/actions/meals.action';
+import { AddMealModel } from './modules/add-meal/models/add-meal-model';
 
 @Injectable()
 export class MealsFacade {
     readonly meals$: Observable<MealsQueryResult> = this.store.select(
         fromMealsSelectors.selectMeals
     );
-    readonly diets$: Observable<{ key: string; value: string }[] | null> =
+    readonly diets$: Observable<{ [key: string]: string } | null> =
         this.store.select(fromMealsSelectors.selectDiets);
+
+    readonly isLoading$: Observable<boolean> = this.store.select(
+        fromMealsSelectors.selectIsLoading
+    );
 
     constructor(private store: Store<MealState>) {}
 
@@ -32,6 +37,10 @@ export class MealsFacade {
 
     getDiets(userId: string) {
         this.dispatch(MealActions.fetchDiets({ userId }));
+    }
+
+    addMeal(addMealModel: AddMealModel) {
+        this.dispatch(MealsActions.addMeals({addMealModel}))
     }
 
     private dispatch(action: Action): void {

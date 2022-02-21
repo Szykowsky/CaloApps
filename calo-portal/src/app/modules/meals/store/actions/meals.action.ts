@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Datetype } from '../../models/meals-filter-model';
 import { MealsQueryResult } from '../../models/meals-model';
+import { AddMealModel } from '../../modules/add-meal/models/add-meal-model';
 
 export const enum MealsActionTypes {
     FetchMeals = '[MEALS] Fetch init',
@@ -9,6 +10,9 @@ export const enum MealsActionTypes {
     FetchDiets = '[MEALS] Fetch diets',
     FetchDietsSuccess = '[MEALS] Fetch diets success',
     FetchDietsFail = '[MEALS] Fetch diets fail',
+    AddMeals = '[MEALS] Add init',
+    AddMealsSuccess = '[MEALS] Add success',
+    AddMealsFail = '[MEALS] Add fail',
 }
 
 export const fetchMeals = createAction(
@@ -40,10 +44,26 @@ export const fetchDiets = createAction(
 
 export const fetchDietsSuccess = createAction(
     MealsActionTypes.FetchDietsSuccess,
-    props<{ diets: { key: string; value: string }[] }>()
+    props<{ diets: { [key: string]: string } }>()
 );
 
 export const fetchDietsFail = createAction(
     MealsActionTypes.FetchDietsFail,
+    props<{ error: {} }>()
+);
+
+export const addMeals = createAction(
+    MealsActionTypes.AddMeals,
+    props<{
+        addMealModel: AddMealModel
+    }>()
+);
+
+export const addMealsSuccess = createAction(
+    MealsActionTypes.AddMealsSuccess,
+);
+
+export const addMealsFail = createAction(
+    MealsActionTypes.AddMealsFail,
     props<{ error: {} }>()
 );

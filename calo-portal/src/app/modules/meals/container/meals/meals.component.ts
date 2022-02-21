@@ -17,7 +17,7 @@ export class MealsComponent implements OnInit {
 
     ngOnInit(): void {
         this.mealsFacade.getMealList({
-            dietId: '68D9B10A-5608-4E44-68A5-08D9EE630B5E',
+            dietId: '5c56baaf-7144-41db-338a-08d9f562247d',
             dateType: Datetype.Month,
             dayNumer: 2,
             monthNumber: 2,
