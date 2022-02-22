@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 import {
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
@@ -34,6 +35,7 @@ import {
         NgxMatTimepickerModule,
         MatSelectModule,
         MatSnackBarModule,
+        MatMenuModule,
     ],
     exports: [
         MatToolbarModule,
@@ -50,6 +52,7 @@ import {
         NgxMatTimepickerModule,
         MatSelectModule,
         MatSnackBarModule,
+        MatMenuModule,
     ],
     providers: [MatDatepickerModule],
 })

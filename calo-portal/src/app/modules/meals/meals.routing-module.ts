@@ -8,10 +8,20 @@ const routes: Routes = [
         path: '', component: MealsComponent,
     },
     {
-        path: 'add/:dietId',
-        loadChildren: () =>
-            import('./modules/add-meal/add-meal.module').then((m) => m.AddMealModule),
-    }
+        path: 'add',
+        children: [
+            {
+                path: '',
+                loadChildren: () =>
+                    import('./modules/add-meal/add-meal.module').then((m) => m.AddMealModule),
+            },
+            {
+                path: 'diet',
+                loadChildren: () =>
+                    import('./modules/add-diet/add-diet.module').then((m) => m.AddDietModule),
+            }
+        ]
+    },
 ];
 
 @NgModule({

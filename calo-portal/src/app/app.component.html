@@ -13,7 +13,15 @@
 </mat-toolbar>
 <div class="main-container">
     <router-outlet></router-outlet>
-    <a class="add-button" mat-fab color="primary" routerLink="/meals/add/1">
+    <a class="add-button" mat-fab color="primary" [matMenuTriggerFor]="menu">
         <mat-icon>add</mat-icon>
     </a>
+    <mat-menu #menu="matMenu">
+        <a mat-menu-item routerLink="/meals/add">
+          <span>Meal</span>
+        </a>
+        <a mat-menu-item routerLink="/meals/add/diet">
+          <span>Diet</span>
+        </a>
+      </mat-menu>
 </div>
