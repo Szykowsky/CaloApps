@@ -1,6 +1,7 @@
 ﻿using CaloApps.Data;
 using CaloApps.Data.Models;
 using CaloApps.Shared.Models;
+using FluentValidation;
 using MediatR;
 
 namespace CaloApps.Diets.Commands
@@ -18,6 +19,31 @@ namespace CaloApps.Diets.Commands
             public int? Vitamins { get; set; }
             public int? Minerals { get; set; }
             public Guid UserId { get; set; }
+        }
+
+        public class AddMealValidator : AbstractValidator<Command>
+        {
+            public AddMealValidator()
+            {
+                RuleFor(x => x.UserId)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("You have to add user id");
+
+                RuleFor(x => x.Name)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("You Have to add name of meal")
+                    .MaximumLength(250)
+                    .WithMessage("Max length: 250 characters");
+
+                RuleFor(x => x.DayKcal)
+                    .NotEmpty()
+                    .NotNull()
+                    .WithMessage("You Have to add day kcal")
+                    .GreaterThan(0)
+                    .WithMessage("Kcal must be grather than 0");
+            }
         }
 
         public class Handler : IRequestHandler<Command, RequestStatus>
