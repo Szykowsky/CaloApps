@@ -1,12 +1,8 @@
 using CaloApps.Data;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using System.Reflection;
 using CaloApps.Middlewares.Shared;
-using FluentValidation.AspNetCore;
-using static CaloApps.Meals.Queries.GetMeals;
 using CaloApps.Shared.Middlewares;
 using FluentValidation;
 using CaloApps.Users.Services;
