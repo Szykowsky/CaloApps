@@ -59,6 +59,7 @@ builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddAuthorization();
+
 var key = Encoding.UTF8.GetBytes("SuperSecretKey@345");
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 builder.Services.AddAuthentication(options =>
@@ -81,16 +82,17 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(key)
         };
     });
+
 builder.Services.AddDbContext<CaloContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("CaloConnection"));
 });
+
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
 
-
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -98,16 +100,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.UseHttpsRedirection();
-
 app.UseCors("CorsPolicy");
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.UseMiddleware<ExceptionMiddleware>();
-
 app.Run();
