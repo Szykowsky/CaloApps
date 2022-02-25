@@ -3,6 +3,9 @@ using CaloApps.Data.Models;
 using CaloApps.Data;
 using CaloApps.Shared.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
+using CaloApps.Users.Services;
 
 namespace CaloApps.Users.Commands
 {
@@ -10,7 +13,8 @@ namespace CaloApps.Users.Commands
     {
         public class Command : IRequest<CreateUserResult> 
         {
-            public string NickName { get; set; }
+            public string Login { get; set; }
+            public string Password { get; set; }
         }
 
         public class CreateUserResult
@@ -22,15 +26,17 @@ namespace CaloApps.Users.Commands
         public class Handler : IRequestHandler<Command, CreateUserResult>
         {
             private readonly CaloContext dbContext;
+            private readonly IPasswordService passwordService;
 
-            public Handler(CaloContext dbContext)
+            public Handler(CaloContext dbContext, IPasswordService passwordService)
             {
                 this.dbContext = dbContext;
+                this.passwordService = passwordService;
             }
 
             public async Task<CreateUserResult> Handle(Command command, CancellationToken cancellationToken)
             {
-                var isUserExists = await dbContext.Users.AnyAsync(u => u.NickName == command.NickName, cancellationToken);
+                var isUserExists = await dbContext.Users.AnyAsync(u => u.Login == command.Login, cancellationToken);
                 if(isUserExists)
                 {
                     return new CreateUserResult
@@ -40,9 +46,14 @@ namespace CaloApps.Users.Commands
                     };
                 }
 
+                var salt = this.passwordService.GenerateSalt();
+                var passwordHash = this.passwordService.PreparePasswordHash(command.Password, salt);
+
                 var user = new User
                 {
-                    NickName = command.NickName,
+                    Login = command.Login,
+                    PasswordHash = passwordHash,
+                    Salt = salt,
                 };
 
                 await this.dbContext.Users.AddAsync(user, cancellationToken);

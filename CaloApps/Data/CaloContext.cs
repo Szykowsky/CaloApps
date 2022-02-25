@@ -19,7 +19,7 @@ namespace CaloApps.Data
             {
                 user.HasKey(t => t.Id);
                 user.Property(t => t.Id).ValueGeneratedOnAdd();
-                user.HasIndex(t => t.NickName).IsUnique(true);
+                user.HasIndex(t => t.Login).IsUnique(true);
             });
 
             modelBuilder.Entity<Meal>(meal =>

@@ -9,6 +9,7 @@ using FluentValidation.AspNetCore;
 using static CaloApps.Meals.Queries.GetMeals;
 using CaloApps.Shared.Middlewares;
 using FluentValidation;
+using CaloApps.Users.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => c.CustomSchemaIds(x => x.FullName));
+
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddTransient<ExceptionMiddleware>();
