@@ -1,6 +1,7 @@
 ﻿using CaloApps.Diets.Commands;
 using CaloApps.Diets.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,7 @@ namespace CaloApps.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetDietsAsync([FromRoute] Guid userId)
         {

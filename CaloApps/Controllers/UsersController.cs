@@ -15,11 +15,23 @@ namespace CaloApps.Controllers
             this.mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUser.Command createUserCommand)
         {
             var result = await this.mediator.Send(createUserCommand);
             if(!result.RequestStatus.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignInUser([FromBody] LoginUser.Command loginCommand)
+        {
+            var result = await this.mediator.Send(loginCommand);
+            if (result == null)
             {
                 return BadRequest(result);
             }

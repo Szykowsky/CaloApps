@@ -2,6 +2,7 @@
 using CaloApps.Meals.Models;
 using CaloApps.Meals.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CaloApps.Controllers
@@ -23,6 +24,7 @@ namespace CaloApps.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet("{dietId}")]
         public async Task<IActionResult> GetMeals([FromRoute] Guid dietId, [FromQuery] DateType? dateType, int? dayNumber, int? monthNumber)
         {
