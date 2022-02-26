@@ -1,18 +1,25 @@
-﻿using System.Security.Cryptography;
+﻿using CaloApps.Shared.Models;
+using Microsoft.Extensions.Options;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace CaloApps.Users.Services
 {
     public class PasswordService : IPasswordService
     {
-        private const string pepper = "zdRpf^%f65V(0"; // TODO move to settings
+        private readonly AppSettings appSettings;
         private const int saltSize = 128 / 8; // 128 bits
+
+        public PasswordService(IOptions<AppSettings> appSettings)
+        {
+            this.appSettings = appSettings.Value;
+        }
 
         public string PreparePasswordHash(string password, string salt)
         {
             var passwordHash = string.Format("{0}{1}", salt, password);
 
-            return HMACSHA512(passwordHash, pepper);
+            return HMACSHA512(passwordHash, this.appSettings.Pepper);
         }
 
         public string GenerateSalt()

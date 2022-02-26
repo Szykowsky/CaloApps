@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using CaloApps.Shared.Models;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -7,9 +9,16 @@ namespace CaloApps.Users.Services
 {
     public class TokenService : ITokenService
     {
+        private readonly AppSettings appSettings;
+
+        public TokenService(IOptions<AppSettings> appSettings)
+        {
+            this.appSettings = appSettings.Value;
+        }
+
         public string GetToken(string login, Guid id)
         {
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SuperSecretKey@345")); // TODO move to configuration
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.appSettings.Secret)); // TODO move to configuration
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512);
 
             var claims = new List<Claim>
@@ -19,10 +28,10 @@ namespace CaloApps.Users.Services
             };
 
             var tokenOptions = new JwtSecurityToken(
-                issuer: "https://localhost:44323", // TODO move to configuration
-                audience: "https://localhost:44323", // TODO move to configuration
+                issuer: this.appSettings.JWTSecurity.Issuer,
+                audience: this.appSettings.JWTSecurity.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(60), // TODO move to configuration
+                expires: DateTime.Now.AddMinutes(this.appSettings.JWTSecurity.ExpiredTime),
                 signingCredentials: signinCredentials
                 );
 
