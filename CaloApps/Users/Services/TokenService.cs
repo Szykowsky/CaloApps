@@ -18,7 +18,7 @@ namespace CaloApps.Users.Services
 
         public string GetToken(string login, Guid id)
         {
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.appSettings.Secret)); // TODO move to configuration
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.appSettings.Secret));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512);
 
             var claims = new List<Claim>
