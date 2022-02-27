@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using CaloApps.Shared.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Calo.Data;
+using Calo.Feature.Meals;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,7 +90,8 @@ builder.Services.AddDbContext<CaloContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Calo"));
 });
 
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.RegisterRequestHandlers();
+// builder.Services.AddMediatR(typeof(Program).GetTypeInfo().Assembly);
 
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
 

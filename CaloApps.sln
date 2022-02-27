@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Core", "Calo.Core\Calo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Infrastructure", "Calo.Infrastructure\Calo.Infrastructure.csproj", "{C3018902-88CF-4E7A-9CBB-501011E5A22D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{1A110E8F-DE09-4F52-B198-84D3679FBA3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Feature.Meals", "Calo.Feature.Meal\Calo.Feature.Meals.csproj", "{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +31,16 @@ Global
 		{C3018902-88CF-4E7A-9CBB-501011E5A22D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3018902-88CF-4E7A-9CBB-501011E5A22D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3018902-88CF-4E7A-9CBB-501011E5A22D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18A2AC86-404C-4C8C-97FB-8ACB07DC9667}

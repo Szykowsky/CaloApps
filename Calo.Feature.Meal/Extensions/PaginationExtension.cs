@@ -1,9 +1,9 @@
-﻿using Calo.SharedModels;
-using CaloApps.Shared.Models;
+﻿using Calo.Core.Models;
+using Calo.Feature.Meals.Models;
 using Microsoft.EntityFrameworkCore;
-using static CaloApps.Meals.Queries.GetMeals;
+using static Calo.Feature.Meals.Queries.GetMeals;
 
-namespace CaloApps.Meals.Extensions
+namespace Calo.Feature.Meals.Extensions
 {
     public static class PaginationExtension
     {

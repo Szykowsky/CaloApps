@@ -1,7 +1,7 @@
 ﻿using Calo.Core.Entities;
-using Calo.SharedModels;
+using Calo.Feature.Meals.Models;
 
-namespace CaloApps.Meals.Extensions
+namespace Calo.Feature.Meals.Extensions
 {
     public static class QueryFilterExtension
     {

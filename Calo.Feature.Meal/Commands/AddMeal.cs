@@ -1,10 +1,10 @@
 ﻿using Calo.Core.Entities;
+using Calo.Core.Models;
 using Calo.Data;
-using CaloApps.Shared.Models;
 using FluentValidation;
 using MediatR;
 
-namespace CaloApps.Meals.Commands
+namespace Calo.Feature.Meals.Commands
 {
     public class AddMeal
     {

@@ -1,4 +1,4 @@
-﻿namespace CaloApps.Shared.Models
+﻿namespace Calo.Core.Models
 {
     public class PaginationBase
     {

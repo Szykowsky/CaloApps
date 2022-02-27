@@ -1,11 +1,11 @@
 ﻿using Calo.Core.Entities;
 using Calo.Data;
-using Calo.SharedModels;
+using Calo.Feature.Meals.Models;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaloApps.Meals.Commands
+namespace Calo.Feature.Meals.Commands
 {
     public class PatchMeals
     {

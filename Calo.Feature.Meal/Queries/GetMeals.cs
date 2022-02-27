@@ -1,12 +1,12 @@
-﻿using Calo.Data;
-using Calo.SharedModels;
-using CaloApps.Meals.Extensions;
-using CaloApps.Shared.Models;
+﻿using Calo.Core.Models;
+using Calo.Data;
+using Calo.Feature.Meals.Extensions;
+using Calo.Feature.Meals.Models;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaloApps.Meals.Queries
+namespace Calo.Feature.Meals.Queries
 {
     public class GetMeals
     {

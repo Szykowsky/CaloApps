@@ -1,6 +1,6 @@
-﻿using Calo.SharedModels;
-using CaloApps.Meals.Commands;
-using CaloApps.Meals.Queries;
+﻿using Calo.Feature.Meals.Commands;
+using Calo.Feature.Meals.Models;
+using Calo.Feature.Meals.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;

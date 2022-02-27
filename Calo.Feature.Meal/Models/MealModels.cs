@@ -1,5 +1,5 @@
 ﻿
-namespace Calo.SharedModels
+namespace Calo.Feature.Meals.Models
 {
     public class MealModels
     {
