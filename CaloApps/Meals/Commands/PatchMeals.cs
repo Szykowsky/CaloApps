@@ -1,5 +1,5 @@
-﻿using CaloApps.Data;
-using CaloApps.Meals.Models;
+﻿using Calo.SharedModels;
+using CaloApps.Data;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ namespace CaloApps.Meals.Commands
         public class Command : IRequest<PatchMealsResult>
         {
             public Guid DietId { get; set; }
-            public JsonPatchDocument<IDictionary<Guid, PatchMealsModel>> PatchMealsModel { get; set; }
+            public JsonPatchDocument<IDictionary<Guid, MealModels.Patch>> PatchMealsModel { get; set; }
         }
 
         public class PatchMealsResult
@@ -35,7 +35,7 @@ namespace CaloApps.Meals.Commands
                     .AsNoTracking()
                     .ToListAsync(cancellationToken);
 
-                var mealPatchListModel = meals.Select(x => new PatchMealsModel 
+                var mealPatchListModel = meals.Select(x => new MealModels.Patch
                 {
                     DietId = x.DietId,
                     Date = x.Date,

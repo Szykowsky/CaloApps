@@ -1,5 +1,5 @@
-﻿using CaloApps.Meals.Commands;
-using CaloApps.Meals.Models;
+﻿using Calo.SharedModels;
+using CaloApps.Meals.Commands;
 using CaloApps.Meals.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,12 +25,11 @@ namespace CaloApps.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet("{dietId}")]
-        public async Task<IActionResult> GetMeals([FromRoute] Guid dietId, [FromQuery] DateType? dateType, int? dayNumber, int? monthNumber)
+        public async Task<IActionResult> GetMeals([FromRoute] Guid dietId, [FromQuery] MealModels.DateType? dateType, int? dayNumber, int? monthNumber)
         {
-            var mealSearchModel = dateType == null || dateType == DateType.None ? null
-                : new MealsFilter
+            var mealSearchModel = dateType == null || dateType == MealModels.DateType.None ? null
+                : new MealModels.Filter
                 {
                     DateType = dateType,
                     DayNumber = dayNumber,
@@ -46,7 +45,7 @@ namespace CaloApps.Controllers
         }
 
         [HttpPatch("{dietId}")]
-        public async Task<IActionResult> PatchMeals([FromRoute] Guid dietId, [FromBody] JsonPatchDocument<IDictionary<Guid, PatchMealsModel>> patchDocument)
+        public async Task<IActionResult> PatchMeals([FromRoute] Guid dietId, [FromBody] JsonPatchDocument<IDictionary<Guid, MealModels.Patch>> patchDocument)
         {
             var result = await this.mediator.Send(new PatchMeals.Command
             {

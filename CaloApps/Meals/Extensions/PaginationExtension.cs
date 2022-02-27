@@ -1,4 +1,4 @@
-﻿using CaloApps.Meals.Models;
+﻿using Calo.SharedModels;
 using CaloApps.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using static CaloApps.Meals.Queries.GetMeals;
@@ -7,7 +7,7 @@ namespace CaloApps.Meals.Extensions
 {
     public static class PaginationExtension
     {
-        public static async Task<QueryMealsResult> GetPagedResult(this IQueryable<MealDto> query, int page, int pageSize, CancellationToken cancellationToken)
+        public static async Task<QueryMealsResult> GetPagedResult(this IQueryable<MealModels.Dto> query, int page, int pageSize, CancellationToken cancellationToken)
         {
             var rowCount = query.Count();
             var skip = (page - 1) * pageSize;

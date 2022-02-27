@@ -1,7 +1,6 @@
-﻿using CaloApps.Data;
-using CaloApps.Data.Models;
+﻿using Calo.SharedModels;
+using CaloApps.Data;
 using CaloApps.Meals.Extensions;
-using CaloApps.Meals.Models;
 using CaloApps.Shared.Models;
 using FluentValidation;
 using MediatR;
@@ -14,12 +13,12 @@ namespace CaloApps.Meals.Queries
         public class Query : IRequest<QueryMealsResult>
         {
             public Guid DietId { get; set; }
-            public MealsFilter? MealsFilterModel { get; set; }
+            public MealModels.Filter? MealsFilterModel { get; set; }
         }
 
         public class QueryMealsResult
         {
-            public IEnumerable<MealDto> QueryResult { get; set; }
+            public IEnumerable<MealModels.Dto> QueryResult { get; set; }
             public PaginationBase PaginationBase { get; set; }
 
         }
@@ -64,7 +63,7 @@ namespace CaloApps.Meals.Queries
                     .Where(m => m.DietId == request.DietId)
                     .AsQueryable();
 
-                if(request.MealsFilterModel == null || request.MealsFilterModel.DateType == DateType.None)
+                if(request.MealsFilterModel == null || request.MealsFilterModel.DateType == MealModels.DateType.None)
                 {
                     return await meals
                         .SelectMealDto()
