@@ -3,6 +3,7 @@ using CaloApps.Meals.Models;
 using CaloApps.Meals.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CaloApps.Controllers
@@ -41,6 +42,18 @@ namespace CaloApps.Controllers
                 DietId = dietId, 
                 MealsFilterModel = mealSearchModel,
             });
+            return Ok(result);
+        }
+
+        [HttpPatch("{dietId}")]
+        public async Task<IActionResult> PatchMeals([FromRoute] Guid dietId, [FromBody] JsonPatchDocument<IDictionary<Guid, PatchMealsModel>> patchDocument)
+        {
+            var result = await this.mediator.Send(new PatchMeals.Command
+            {
+                DietId = dietId,
+                PatchMealsModel = patchDocument
+            });
+
             return Ok(result);
         }
     }

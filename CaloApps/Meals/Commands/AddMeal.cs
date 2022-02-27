@@ -60,7 +60,7 @@ namespace CaloApps.Meals.Commands
                 };
 
                 await this.dbContext.AddAsync(meal, cancellationToken);
-                await dbContext.SaveChangesAsync(cancellationToken);
+                await this.dbContext.SaveChangesAsync(cancellationToken);
 
                 return new RequestStatus(true, "Added new meal");
             }
