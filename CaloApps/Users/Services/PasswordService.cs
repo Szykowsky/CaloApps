@@ -1,4 +1,4 @@
-﻿using CaloApps.Shared.Models;
+﻿using Calo.Core.Models;
 using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
 using System.Text;

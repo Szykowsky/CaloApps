@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace CaloApps.Shared.Models
+namespace Calo.Core.Models
 {
     public class ErrorDetails
     {

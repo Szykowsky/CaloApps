@@ -10,10 +10,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using CaloApps.Shared.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Calo.Data;
 using Calo.Feature.Meals;
+using Calo.Core.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

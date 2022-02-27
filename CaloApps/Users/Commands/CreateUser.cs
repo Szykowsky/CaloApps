@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using CaloApps.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using CaloApps.Users.Services;
 using Calo.Data;
 using Calo.Core.Entities;
+using Calo.Core.Models;
 
 namespace CaloApps.Users.Commands
 {
