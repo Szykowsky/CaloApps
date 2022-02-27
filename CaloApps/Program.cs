@@ -1,4 +1,3 @@
-using CaloApps.Data;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using System.Reflection;
@@ -13,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using CaloApps.Shared.Models;
 using Microsoft.Extensions.DependencyInjection;
+using Calo.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,7 +60,8 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddAuthorization();
 
-var key = Encoding.UTF8.GetBytes("SuperSecretKey@345");
+var secret = builder.Configuration.GetSection("AppSettings:Secret");
+var key = Encoding.UTF8.GetBytes(secret.Value);
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 builder.Services.AddAuthentication(options =>
 {
@@ -85,7 +86,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddDbContext<CaloContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CaloConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Calo"));
 });
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());

@@ -1,5 +1,6 @@
-﻿using Calo.SharedModels;
-using CaloApps.Data;
+﻿using Calo.Core.Entities;
+using Calo.Data;
+using Calo.SharedModels;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
@@ -46,7 +47,7 @@ namespace CaloApps.Meals.Commands
 
                 request.PatchMealsModel.ApplyTo(mealPatchListModel);
 
-                var mealsResult = mealPatchListModel.Select(x => new Data.Models.Meal
+                var mealsResult = mealPatchListModel.Select(x => new Meal
                 {
                     Id = x.Value.Id,
                     Name = x.Value.Name,

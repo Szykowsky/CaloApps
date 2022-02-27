@@ -1,8 +1,7 @@
-﻿namespace CaloApps.Data.Models
+﻿namespace Calo.Core.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
-        public Guid Id { get; set; }
         public string Login { get; set; }
         public string PasswordHash { get; set; }
         public string Salt { get; set; }

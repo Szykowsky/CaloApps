@@ -1,5 +1,5 @@
-﻿using CaloApps.Data;
-using CaloApps.Data.Models;
+﻿using Calo.Core.Entities;
+using Calo.Data;
 using CaloApps.Shared.Models;
 using FluentValidation;
 using MediatR;

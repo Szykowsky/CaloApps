@@ -1,4 +1,4 @@
-﻿using CaloApps.Data;
+﻿using Calo.Data;
 using CaloApps.Users.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CaloApps.Data.Models
+namespace Calo.Core.Entities
 {
-    public class Diet
+    public class Diet : BaseEntity
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public int DayKcal { get; set; }
         public int? Carbohydrates { get; set; }

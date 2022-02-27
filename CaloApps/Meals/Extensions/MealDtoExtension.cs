@@ -1,5 +1,5 @@
-﻿using Calo.SharedModels;
-using CaloApps.Data.Models;
+﻿using Calo.Core.Entities;
+using Calo.SharedModels;
 
 namespace CaloApps.Meals.Extensions
 {

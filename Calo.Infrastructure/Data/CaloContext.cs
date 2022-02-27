@@ -1,7 +1,7 @@
-﻿using CaloApps.Data.Models;
+﻿using Calo.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaloApps.Data
+namespace Calo.Data
 {
     public class CaloContext : DbContext
     {

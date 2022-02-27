@@ -1,5 +1,5 @@
-﻿using Calo.SharedModels;
-using CaloApps.Data;
+﻿using Calo.Data;
+using Calo.SharedModels;
 using CaloApps.Meals.Extensions;
 using CaloApps.Shared.Models;
 using FluentValidation;
