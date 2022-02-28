@@ -59,7 +59,6 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddTransient<ExceptionMiddleware>();
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddAuthorization();
 
@@ -96,6 +95,8 @@ builder.Services.RegisterRequestMealsHandlers();
 builder.Services.RegisterRequestUsersHandlers();
 builder.Services.RegisterRequestDietsHandlers();
 // builder.Services.AddMediatR(typeof(Program).GetTypeInfo().Assembly);
+
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
 

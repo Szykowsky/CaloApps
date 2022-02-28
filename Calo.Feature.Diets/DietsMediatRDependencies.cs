@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Calo.Feature.Diets
@@ -9,7 +10,8 @@ namespace Calo.Feature.Diets
             this IServiceCollection services)
         {
             return services
-                .AddMediatR(typeof(DietsMediatRDependencies).Assembly);
+                .AddMediatR(typeof(DietsMediatRDependencies).Assembly)
+                .AddValidatorsFromAssembly(typeof(DietsMediatRDependencies).Assembly);
         }
     }
 }

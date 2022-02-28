@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Calo.Feature.Users
@@ -9,7 +10,8 @@ namespace Calo.Feature.Users
             this IServiceCollection services)
         {
             return services
-                .AddMediatR(typeof(UsersMediatRDependencies).Assembly);
+                .AddMediatR(typeof(UsersMediatRDependencies).Assembly)
+                .AddValidatorsFromAssembly(typeof(UsersMediatRDependencies).Assembly); ;
         }
     }
 }
