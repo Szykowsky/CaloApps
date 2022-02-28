@@ -4,6 +4,7 @@ using Calo.Data;
 using Calo.Core.Entities;
 using Calo.Core.Models;
 using Calo.Feature.Users.Services;
+using FluentValidation;
 
 namespace Calo.Feature.Users.Commands
 {
@@ -13,12 +14,31 @@ namespace Calo.Feature.Users.Commands
         {
             public string Login { get; set; }
             public string Password { get; set; }
+            public string ConfirmPassword { get; set; }
         }
 
         public class CreateUserResult
         {
             public Guid? NewUserId { get; set; }
             public RequestStatus RequestStatus { get; set; }
+        }
+
+        public class GetCreateUserValidator : AbstractValidator<Command>
+        {
+            public GetCreateUserValidator()
+            {
+                RuleFor(x => x.Login)
+                    .NotEmpty()
+                    .NotNull().WithMessage("You have to add login")
+                    .MinimumLength(2).WithMessage("Login: Min length = 2");
+                RuleFor(x => x.Password)
+                    .NotEmpty()
+                    .NotNull().WithMessage("You have to add Password")
+                    .MinimumLength(8).WithMessage("Passwords: Min length = 6");
+
+                RuleFor(x => x.ConfirmPassword)
+                    .Equal(x => x.Password).WithMessage("Passwords not match");
+            }
         }
 
         public class Handler : IRequestHandler<Command, CreateUserResult>
