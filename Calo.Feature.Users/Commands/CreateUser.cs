@@ -34,7 +34,7 @@ namespace Calo.Feature.Users.Commands
                 RuleFor(x => x.Password)
                     .NotEmpty()
                     .NotNull().WithMessage("You have to add Password")
-                    .MinimumLength(8).WithMessage("Passwords: Min length = 6");
+                    .MinimumLength(6).WithMessage("Passwords: Min length = 6");
 
                 RuleFor(x => x.ConfirmPassword)
                     .Equal(x => x.Password).WithMessage("Passwords not match");
