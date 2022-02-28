@@ -5,6 +5,7 @@ using Calo.Core.Entities;
 using Calo.Core.Models;
 using Calo.Feature.Users.Services;
 using FluentValidation;
+using Calo.Feature.Users.Helpers;
 
 namespace Calo.Feature.Users.Commands
 {
@@ -29,15 +30,15 @@ namespace Calo.Feature.Users.Commands
             {
                 RuleFor(x => x.Login)
                     .NotEmpty()
-                    .NotNull().WithMessage("You have to add login")
-                    .MinimumLength(2).WithMessage("Login: Min length = 2");
+                    .NotNull().WithMessage(ErrorMessage.NotNullLogin)
+                    .MinimumLength(2).WithMessage(ErrorMessage.MinLengthLogin);
                 RuleFor(x => x.Password)
                     .NotEmpty()
-                    .NotNull().WithMessage("You have to add Password")
-                    .MinimumLength(6).WithMessage("Passwords: Min length = 6");
+                    .NotNull().WithMessage(ErrorMessage.NotNullPassword)
+                    .MinimumLength(6).WithMessage(ErrorMessage.MinLengthPassword);
 
                 RuleFor(x => x.ConfirmPassword)
-                    .Equal(x => x.Password).WithMessage("Passwords not match");
+                    .Equal(x => x.Password).WithMessage(ErrorMessage.PasswordsMatch);
             }
         }
 
