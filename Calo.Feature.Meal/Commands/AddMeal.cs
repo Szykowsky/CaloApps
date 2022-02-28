@@ -1,6 +1,7 @@
 ﻿using Calo.Core.Entities;
 using Calo.Core.Models;
 using Calo.Data;
+using Calo.Feature.Meals.Helpers;
 using FluentValidation;
 using MediatR;
 
@@ -23,21 +24,21 @@ namespace Calo.Feature.Meals.Commands
                 RuleFor(x => x.DietId)
                     .NotEmpty()
                     .NotNull()
-                    .WithMessage("You have to add diet id");
+                    .WithMessage(ErrorMessage.NotNullDietId);
 
                 RuleFor(x => x.Name)
                     .NotEmpty()
                     .NotNull()
-                    .WithMessage("You Have to add name of meal")
+                    .WithMessage(ErrorMessage.NotNullName)
                     .MaximumLength(250)
-                    .WithMessage("Max length: 250 characters");
+                    .WithMessage(ErrorMessage.MaxLengthName);
 
                 RuleFor(x => x.Kcal)
                     .NotEmpty()
                     .NotNull()
-                    .WithMessage("You Have to add kcal")
+                    .WithMessage(ErrorMessage.NotNullKcal)
                     .GreaterThanOrEqualTo(0)
-                    .WithMessage("Kcal must be grather than 0");
+                    .WithMessage(ErrorMessage.GratherThanKcal);
             }
         }
 

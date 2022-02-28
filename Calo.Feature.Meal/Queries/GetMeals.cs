@@ -1,6 +1,7 @@
 ﻿using Calo.Core.Models;
 using Calo.Data;
 using Calo.Feature.Meals.Extensions;
+using Calo.Feature.Meals.Helpers;
 using Calo.Feature.Meals.Models;
 using FluentValidation;
 using MediatR;
@@ -30,19 +31,19 @@ namespace Calo.Feature.Meals.Queries
                 RuleFor(x => x.DietId)
                     .NotEmpty()
                     .NotNull()
-                    .WithMessage("You have to add diet id");
+                    .WithMessage(ErrorMessage.NotNullDietId);
 
                 When(x => x.MealsFilterModel != null, () =>
                 {
                     RuleFor(z => z.MealsFilterModel.DateType)
                         .NotNull()
-                        .WithMessage("You have to pass correct date type");
+                        .WithMessage(ErrorMessage.NotNullDateType);
                     RuleFor(z => z.MealsFilterModel.DayNumber)
                         .InclusiveBetween(1, 31)
-                        .WithMessage("Day may be from 1 to 31");
+                        .WithMessage(ErrorMessage.DateNumberRange);
                     RuleFor(z => z.MealsFilterModel.MonthNumber)
                         .InclusiveBetween(1, 12)
-                        .WithMessage("Day may be from 1 to 12");
+                        .WithMessage(ErrorMessage.MonthNumberRange);
                 });
             }
         }
