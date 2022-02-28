@@ -4,7 +4,6 @@ using System.Reflection;
 using CaloApps.Middlewares.Shared;
 using CaloApps.Shared.Middlewares;
 using FluentValidation;
-using CaloApps.Users.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -14,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Calo.Data;
 using Calo.Feature.Meals;
 using Calo.Core.Models;
+using Calo.Feature.Users.Services;
+using Calo.Feature.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,7 +91,8 @@ builder.Services.AddDbContext<CaloContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Calo"));
 });
 
-builder.Services.RegisterRequestHandlers();
+builder.Services.RegisterRequestMealsHandlers();
+builder.Services.RegisterRequestUsersHandlers();
 // builder.Services.AddMediatR(typeof(Program).GetTypeInfo().Assembly);
 
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));

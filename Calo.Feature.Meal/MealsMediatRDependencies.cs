@@ -6,7 +6,7 @@ namespace Calo.Feature.Meals
 {
     public static class MealsMediatRDependencies
     {
-        public static IServiceCollection RegisterRequestHandlers(
+        public static IServiceCollection RegisterRequestMealsHandlers(
             this IServiceCollection services)
         {
             return services

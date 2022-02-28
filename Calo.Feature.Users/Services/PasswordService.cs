@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CaloApps.Users.Services
+namespace Calo.Feature.Users.Services
 {
     public class PasswordService : IPasswordService
     {

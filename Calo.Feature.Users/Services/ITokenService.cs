@@ -1,4 +1,4 @@
-﻿namespace CaloApps.Users.Services
+﻿namespace Calo.Feature.Users.Services
 {
     public interface ITokenService
     {

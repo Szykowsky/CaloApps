@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using CaloApps.Users.Services;
 using Calo.Data;
 using Calo.Core.Entities;
 using Calo.Core.Models;
+using Calo.Feature.Users.Services;
 
-namespace CaloApps.Users.Commands
+namespace Calo.Feature.Users.Commands
 {
     public class CreateUser
     {

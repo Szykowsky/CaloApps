@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Calo.Feature.Meal\Calo.Feature.Meals.csproj" />
+    <ProjectReference Include="..\Calo.Feature.Users\Calo.Feature.Users.csproj" />
     <ProjectReference Include="..\Calo.Infrastructure\Calo.Infrastructure.csproj" />
   </ItemGroup>
 

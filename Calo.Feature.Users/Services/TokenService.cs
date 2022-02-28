@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace CaloApps.Users.Services
+namespace Calo.Feature.Users.Services
 {
     public class TokenService : ITokenService
     {

@@ -1,9 +1,9 @@
 ﻿using Calo.Data;
-using CaloApps.Users.Services;
+using Calo.Feature.Users.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaloApps.Users.Commands
+namespace Calo.Feature.Users.Commands
 {
     public class LoginUser
     {

@@ -5,13 +5,17 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.API", "CaloApps\Calo.API.csproj", "{B2F8AC1C-CDD8-4CC0-9FE9-C5AFB3A0A198}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Core", "Calo.Core\Calo.Core.csproj", "{DEDA010F-9441-4077-A45E-E456A769CC6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Core", "Calo.Core\Calo.Core.csproj", "{DEDA010F-9441-4077-A45E-E456A769CC6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Infrastructure", "Calo.Infrastructure\Calo.Infrastructure.csproj", "{C3018902-88CF-4E7A-9CBB-501011E5A22D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Infrastructure", "Calo.Infrastructure\Calo.Infrastructure.csproj", "{C3018902-88CF-4E7A-9CBB-501011E5A22D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{1A110E8F-DE09-4F52-B198-84D3679FBA3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Feature.Meals", "Calo.Feature.Meal\Calo.Feature.Meals.csproj", "{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.Meals", "Calo.Feature.Meal\Calo.Feature.Meals.csproj", "{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.Users", "Calo.Feature.Users\Calo.Feature.Users.csproj", "{0F09F51A-371B-4509-A20D-31DA94215FF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Feature.Diets", "Calo.Feature.Diets\Calo.Feature.Diets.csproj", "{E684ADFE-FBA9-4994-8F46-EEBC0EF7A4B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +39,22 @@ Global
 		{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F09F51A-371B-4509-A20D-31DA94215FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F09F51A-371B-4509-A20D-31DA94215FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F09F51A-371B-4509-A20D-31DA94215FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F09F51A-371B-4509-A20D-31DA94215FF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E684ADFE-FBA9-4994-8F46-EEBC0EF7A4B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E684ADFE-FBA9-4994-8F46-EEBC0EF7A4B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E684ADFE-FBA9-4994-8F46-EEBC0EF7A4B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E684ADFE-FBA9-4994-8F46-EEBC0EF7A4B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BBBEC4CA-00E4-4BEE-B675-F0A25BC2F578} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
+		{0F09F51A-371B-4509-A20D-31DA94215FF0} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
+		{E684ADFE-FBA9-4994-8F46-EEBC0EF7A4B9} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18A2AC86-404C-4C8C-97FB-8ACB07DC9667}
