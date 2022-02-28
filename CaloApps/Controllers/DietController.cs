@@ -1,5 +1,4 @@
-﻿using CaloApps.Diets.Commands;
-using CaloApps.Diets.Queries;
+﻿using Calo.Feature.Diets.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

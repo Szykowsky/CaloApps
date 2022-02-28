@@ -15,6 +15,7 @@ using Calo.Feature.Meals;
 using Calo.Core.Models;
 using Calo.Feature.Users.Services;
 using Calo.Feature.Users;
+using Calo.Feature.Diets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -93,6 +94,7 @@ builder.Services.AddDbContext<CaloContext>(options =>
 
 builder.Services.RegisterRequestMealsHandlers();
 builder.Services.RegisterRequestUsersHandlers();
+builder.Services.RegisterRequestDietsHandlers();
 // builder.Services.AddMediatR(typeof(Program).GetTypeInfo().Assembly);
 
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));

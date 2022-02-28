@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaloApps.Diets.Queries
+namespace Calo.Feature.Diets.Commands
 {
     public class GetDiets
     {

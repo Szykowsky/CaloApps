@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Calo.Feature.Diets\Calo.Feature.Diets.csproj" />
     <ProjectReference Include="..\Calo.Feature.Meal\Calo.Feature.Meals.csproj" />
     <ProjectReference Include="..\Calo.Feature.Users\Calo.Feature.Users.csproj" />
     <ProjectReference Include="..\Calo.Infrastructure\Calo.Infrastructure.csproj" />

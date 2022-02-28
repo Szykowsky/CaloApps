@@ -4,7 +4,7 @@ using Calo.Data;
 using FluentValidation;
 using MediatR;
 
-namespace CaloApps.Diets.Commands
+namespace Calo.Feature.Diets.Commands
 {
     public class AddDiet
     {
