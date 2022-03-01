@@ -1,7 +1,9 @@
 ﻿using Calo.Feature.Users.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CaloApps.Controllers
 {
@@ -10,9 +12,11 @@ namespace CaloApps.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IMediator mediator;
-        public UsersController(IMediator mediator)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public UsersController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             this.mediator = mediator;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         [HttpPost("create")]
@@ -32,6 +36,24 @@ namespace CaloApps.Controllers
         {
             var result = await this.mediator.Send(loginCommand);
             if (result == null)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPut("diet")]
+        public async Task<IActionResult> UpdateUserCurrentDiet([FromBody] Guid dietId)
+        {
+            var result = await this.mediator.Send(new SaveCurrentDiet.Command
+            {
+                DietId = dietId,
+                Userid = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            });
+
+            if (!result.IsSuccess)
             {
                 return BadRequest(result);
             }
