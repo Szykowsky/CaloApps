@@ -26,7 +26,7 @@ namespace Calo.Data
             {
                 meal.HasKey(t => t.Id);
                 meal.Property(t => t.Id).ValueGeneratedOnAdd();
-                meal.HasOne(t => t.Diet).WithMany().HasForeignKey(t => t.DietId);
+                meal.HasOne(t => t.Diet).WithMany(x => x.Meals).HasForeignKey(t => t.DietId);
             });
 
             modelBuilder.Entity<Diet>(diet =>
