@@ -72,7 +72,10 @@ namespace Calo.Feature.Notifications.Queries
 
                 foreach (var meal in queryDataResult)
                 {
-                    var dailyStatus = dailyStatusList.Where(x => x.Day == meal.Date.Day).FirstOrDefault();
+                    var dailyStatus = dailyStatusList
+                        .Where(x => x.Day == meal.Date.Day)
+                        .FirstOrDefault();
+
                     if (dailyStatus == null)
                     {
                         dailyStatus = new DailyStatus
