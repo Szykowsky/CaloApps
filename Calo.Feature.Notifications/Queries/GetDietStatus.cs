@@ -109,17 +109,6 @@ namespace Calo.Feature.Notifications.Queries
                 };
             }
 
-            private static void PrepareMonthStatusKcalData(ref MonthlyStatus monthStatus, Meal meal)
-            {
-                monthStatus.KcalConsumed += meal.Kcal;
-                monthStatus.KcalRemaining -= meal.Kcal;
-
-                if (monthStatus.KcalRemaining < 0)
-                {
-                    monthStatus.KcalRemaining = 0;
-                }
-            }
-
             private static MonthlyStatus PrepareBasicMonthStatus(IList<Meal> meals)
             {
                 var actualMonth = DateTime.Now.Month;
@@ -131,6 +120,17 @@ namespace Calo.Feature.Notifications.Queries
                     Month = DateTime.Now.Month
                 };
                 return monthStatus;
+            }
+
+            private static void PrepareMonthStatusKcalData(ref MonthlyStatus monthStatus, Meal meal)
+            {
+                monthStatus.KcalConsumed += meal.Kcal;
+                monthStatus.KcalRemaining -= meal.Kcal;
+
+                if (monthStatus.KcalRemaining < 0)
+                {
+                    monthStatus.KcalRemaining = 0;
+                }
             }
 
             private static IList<int> PrepareDaysNotReported(IList<DailyStatus> dailyStatusList)
