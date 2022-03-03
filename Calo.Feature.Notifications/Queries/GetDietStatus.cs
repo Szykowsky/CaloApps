@@ -124,10 +124,12 @@ namespace Calo.Feature.Notifications.Queries
             {
                 var actualMonth = DateTime.Now.Month;
                 var daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, actualMonth);
-                var monthStatus = new MonthlyStatus();
-                monthStatus.KcalRemaining = (meals?.FirstOrDefault()?.Diet.DayKcal ?? 0) * daysInMonth;
-                monthStatus.KcalLimit = (meals?.FirstOrDefault()?.Diet.DayKcal ?? 0) * daysInMonth;
-                monthStatus.Month = DateTime.Now.Month;
+                var monthStatus = new MonthlyStatus
+                {
+                    KcalRemaining = (meals?.FirstOrDefault()?.Diet.DayKcal ?? 0) * daysInMonth,
+                    KcalLimit = (meals?.FirstOrDefault()?.Diet.DayKcal ?? 0) * daysInMonth,
+                    Month = DateTime.Now.Month
+                };
                 return monthStatus;
             }
 
