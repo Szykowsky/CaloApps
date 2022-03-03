@@ -40,12 +40,6 @@ namespace Calo.Feature.Notifications.Queries
             public IList<int> DaysNotReported { get; set; }
         }
 
-        public class QueryDataResult
-        {
-            public IList<Meal> Meals { get; set; }
-            public Diet Diet { get; set; }
-        }
-
         public class Handler : IRequestHandler<Query, QueryDietStatusResult>
         {
             private readonly CaloContext dbContext;
