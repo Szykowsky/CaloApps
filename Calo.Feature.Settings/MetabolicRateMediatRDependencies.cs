@@ -2,16 +2,16 @@
 using FluentValidation;
 using MediatR;
 
-namespace Calo.Feature.UserSettings
+namespace Calo.Feature.MetabolicRate
 {
-    public static class UserAdditionalDataMediatRDependencies
+    public static class MetabolicRateMediatRDependencies
     {
         public static IServiceCollection RegisterRequestUserAdditionalDataHandlers(
             this IServiceCollection services)
         {
             return services
-                .AddMediatR(typeof(UserAdditionalDataMediatRDependencies).Assembly)
-                .AddValidatorsFromAssembly(typeof(UserAdditionalDataMediatRDependencies).Assembly);
+                .AddMediatR(typeof(MetabolicRateMediatRDependencies).Assembly)
+                .AddValidatorsFromAssembly(typeof(MetabolicRateMediatRDependencies).Assembly);
         }
     }
 }

@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.Diets", "Calo.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.Notifications", "Calo.Feature.Notifications\Calo.Feature.Notifications.csproj", "{35643496-B2D0-4DE6-8063-F625276EC992}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.UserAdditionalData", "Calo.Feature.Settings\Calo.Feature.UserAdditionalData.csproj", "{3690758F-1F15-40E3-A97F-A4329C15D698}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.MetabolicRate", "Calo.Feature.Settings\Calo.Feature.MetabolicRate.csproj", "{3690758F-1F15-40E3-A97F-A4329C15D698}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,5 @@
-﻿using Calo.Feature.UserSettings.Commands;
-using Calo.Feature.UserSettings.Models;
+﻿using Calo.Feature.MetabolicRate.Commands;
+using Calo.Feature.MetabolicRate.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,11 +10,11 @@ namespace Calo.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserAdditionalDataController : ControllerBase
+    public class MetabolicRateController : ControllerBase
     {
         private readonly IMediator mediator;
         private readonly IHttpContextAccessor httpContextAccessor;
-        public UserAdditionalDataController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+        public MetabolicRateController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             this.mediator = mediator;
             this.httpContextAccessor = httpContextAccessor;
@@ -22,14 +22,15 @@ namespace Calo.API.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> GetDietsAsync([FromBody] UserAdditionalDataModel.BaseModel model)
+        public async Task<IActionResult> GetDietsAsync([FromBody] MetabolicRateModel.BaseModel model)
         {
-            var result = await this.mediator.Send(new CreateOrUpdateUserAdditionalData.Command
+            var result = await this.mediator.Send(new CreateMetabolicRate.Command
             {
                 Age = model.Age,
                 Weight = model.Weight,
                 Gender = model.Gender,
                 Growth = model.Growth,
+                Activity = model.Activity,
                 UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             });
             return Ok(result);

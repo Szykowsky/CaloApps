@@ -26,7 +26,7 @@
     <ProjectReference Include="..\Calo.Feature.Diets\Calo.Feature.Diets.csproj" />
     <ProjectReference Include="..\Calo.Feature.Meal\Calo.Feature.Meals.csproj" />
     <ProjectReference Include="..\Calo.Feature.Notifications\Calo.Feature.Notifications.csproj" />
-    <ProjectReference Include="..\Calo.Feature.Settings\Calo.Feature.UserAdditionalData.csproj" />
+    <ProjectReference Include="..\Calo.Feature.Settings\Calo.Feature.MetabolicRate.csproj" />
     <ProjectReference Include="..\Calo.Feature.Users\Calo.Feature.Users.csproj" />
     <ProjectReference Include="..\Calo.Infrastructure\Calo.Infrastructure.csproj" />
   </ItemGroup>

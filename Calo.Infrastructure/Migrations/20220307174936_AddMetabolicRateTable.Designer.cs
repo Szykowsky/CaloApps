@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Calo.Infrastructure.Migrations
 {
     [DbContext(typeof(CaloContext))]
-    [Migration("20220307161839_AddUserAdditionalDataTable")]
-    partial class AddUserAdditionalDataTable
+    [Migration("20220307174936_AddMetabolicRateTable")]
+    partial class AddMetabolicRateTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -103,13 +103,55 @@ namespace Calo.Infrastructure.Migrations
                     b.ToTable("Meals");
                 });
 
-            modelBuilder.Entity("Calo.Core.Entities.User", b =>
+            modelBuilder.Entity("Calo.Core.Entities.MetabolicRate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AdditionalDataId")
+                    b.Property<int>("ActiveMetabolicRate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Activity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BasalMetabolicRate")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Growth")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MetabolicRate");
+                });
+
+            modelBuilder.Entity("Calo.Core.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -118,6 +160,9 @@ namespace Calo.Infrastructure.Migrations
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid?>("MetabolicRateId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
@@ -133,46 +178,12 @@ namespace Calo.Infrastructure.Migrations
                     b.Property<Guid?>("SelectedDietId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("SettingId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("AdditionalDataId");
 
                     b.HasIndex("Login")
                         .IsUnique();
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Calo.Core.Entities.UserAdditionalData", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Growth")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserAdditionals");
                 });
 
             modelBuilder.Entity("Calo.Core.Entities.Diet", b =>
@@ -197,20 +208,25 @@ namespace Calo.Infrastructure.Migrations
                     b.Navigation("Diet");
                 });
 
-            modelBuilder.Entity("Calo.Core.Entities.User", b =>
+            modelBuilder.Entity("Calo.Core.Entities.MetabolicRate", b =>
                 {
-                    b.HasOne("Calo.Core.Entities.UserAdditionalData", "AdditionalData")
-                        .WithMany()
-                        .HasForeignKey("AdditionalDataId")
+                    b.HasOne("Calo.Core.Entities.User", "User")
+                        .WithMany("MetabolicRates")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AdditionalData");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Calo.Core.Entities.Diet", b =>
                 {
                     b.Navigation("Meals");
+                });
+
+            modelBuilder.Entity("Calo.Core.Entities.User", b =>
+                {
+                    b.Navigation("MetabolicRates");
                 });
 #pragma warning restore 612, 618
         }

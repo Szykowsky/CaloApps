@@ -17,7 +17,7 @@ using Calo.Feature.Users.Services;
 using Calo.Feature.Users;
 using Calo.Feature.Diets;
 using Calo.Feature.Notifications;
-using Calo.Feature.UserSettings;
+using Calo.Feature.MetabolicRate;
 
 var builder = WebApplication.CreateBuilder(args);
 

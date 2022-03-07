@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calo.Feature.UserSettings.Helpers
+namespace Calo.Feature.MetabolicRate.Helpers
 {
     public static class ErrorMessages
     {

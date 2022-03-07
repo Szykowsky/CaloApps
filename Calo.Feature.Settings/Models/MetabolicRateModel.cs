@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calo.Feature.UserSettings.Models
+namespace Calo.Feature.MetabolicRate.Models
 {
-    public class UserAdditionalDataModel
+    public class MetabolicRateModel
     {
         public class BaseModel
         {
@@ -15,6 +15,7 @@ namespace Calo.Feature.UserSettings.Models
             public int Weight { get; set; }
             public int Growth { get; set; }
             public int Age { get; set; }
+            public Activity Activity { get; set; }
         }
     }
 }

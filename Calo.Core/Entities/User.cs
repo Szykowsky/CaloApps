@@ -8,7 +8,8 @@ namespace Calo.Core.Entities
         public string PasswordHash { get; set; }
         public string Salt { get; set; }
         public Guid? SelectedDietId { get; set; }
-        public Guid? SettingId { get; set; }
-        public UserAdditionalData AdditionalData { get; set; }
+        public Guid? MetabolicRateId { get; set; }
+
+        public IList<MetabolicRate> MetabolicRates { get; set; }
     }
 }
