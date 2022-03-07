@@ -107,6 +107,9 @@ namespace Calo.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AdditionalDataId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -133,10 +136,10 @@ namespace Calo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AdditionalDataId");
+
                     b.HasIndex("Login")
                         .IsUnique();
-
-                    b.HasIndex("SettingId");
 
                     b.ToTable("Users");
                 });
@@ -167,7 +170,7 @@ namespace Calo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Settings");
+                    b.ToTable("UserAdditionals");
                 });
 
             modelBuilder.Entity("Calo.Core.Entities.Diet", b =>
@@ -194,11 +197,13 @@ namespace Calo.Infrastructure.Migrations
 
             modelBuilder.Entity("Calo.Core.Entities.User", b =>
                 {
-                    b.HasOne("Calo.Core.Entities.UserAdditionalData", "Setting")
+                    b.HasOne("Calo.Core.Entities.UserAdditionalData", "AdditionalData")
                         .WithMany()
-                        .HasForeignKey("SettingId");
+                        .HasForeignKey("AdditionalDataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Setting");
+                    b.Navigation("AdditionalData");
                 });
 
             modelBuilder.Entity("Calo.Core.Entities.Diet", b =>

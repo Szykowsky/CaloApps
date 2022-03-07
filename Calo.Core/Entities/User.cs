@@ -9,6 +9,6 @@ namespace Calo.Core.Entities
         public string Salt { get; set; }
         public Guid? SelectedDietId { get; set; }
         public Guid? SettingId { get; set; }
-        public UserAdditionalData Setting { get; set; }
+        public UserAdditionalData AdditionalData { get; set; }
     }
 }

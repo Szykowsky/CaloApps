@@ -8,7 +8,7 @@ namespace Calo.Data
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Meal> Meals { get; set; }
         public virtual DbSet<Diet> Diets { get; set; }
-        public virtual DbSet<UserAdditionalData> Settings { get; set; }
+        public virtual DbSet<UserAdditionalData> UserAdditionals { get; set; }
 
         public CaloContext(DbContextOptions<CaloContext> options) : base(options) { }
 

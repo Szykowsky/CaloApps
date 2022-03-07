@@ -18,13 +18,20 @@ namespace Calo.Infrastructure.Migrations
                 oldType: "uniqueidentifier");
 
             migrationBuilder.AddColumn<Guid>(
+                name: "AdditionalDataId",
+                table: "Users",
+                type: "uniqueidentifier",
+                nullable: false,
+                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+
+            migrationBuilder.AddColumn<Guid>(
                 name: "SettingId",
                 table: "Users",
                 type: "uniqueidentifier",
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Settings",
+                name: "UserAdditionals",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -37,33 +44,38 @@ namespace Calo.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Settings", x => x.Id);
+                    table.PrimaryKey("PK_UserAdditionals", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_SettingId",
+                name: "IX_Users_AdditionalDataId",
                 table: "Users",
-                column: "SettingId");
+                column: "AdditionalDataId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Users_Settings_SettingId",
+                name: "FK_Users_UserAdditionals_AdditionalDataId",
                 table: "Users",
-                column: "SettingId",
-                principalTable: "Settings",
-                principalColumn: "Id");
+                column: "AdditionalDataId",
+                principalTable: "UserAdditionals",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Users_Settings_SettingId",
+                name: "FK_Users_UserAdditionals_AdditionalDataId",
                 table: "Users");
 
             migrationBuilder.DropTable(
-                name: "Settings");
+                name: "UserAdditionals");
 
             migrationBuilder.DropIndex(
-                name: "IX_Users_SettingId",
+                name: "IX_Users_AdditionalDataId",
+                table: "Users");
+
+            migrationBuilder.DropColumn(
+                name: "AdditionalDataId",
                 table: "Users");
 
             migrationBuilder.DropColumn(

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Calo.Infrastructure.Migrations
 {
     [DbContext(typeof(CaloContext))]
-    [Migration("20220307161530_AddUserAdditionalDataTable")]
+    [Migration("20220307161839_AddUserAdditionalDataTable")]
     partial class AddUserAdditionalDataTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,6 +109,9 @@ namespace Calo.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AdditionalDataId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -135,10 +138,10 @@ namespace Calo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AdditionalDataId");
+
                     b.HasIndex("Login")
                         .IsUnique();
-
-                    b.HasIndex("SettingId");
 
                     b.ToTable("Users");
                 });
@@ -169,7 +172,7 @@ namespace Calo.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Settings");
+                    b.ToTable("UserAdditionals");
                 });
 
             modelBuilder.Entity("Calo.Core.Entities.Diet", b =>
@@ -196,11 +199,13 @@ namespace Calo.Infrastructure.Migrations
 
             modelBuilder.Entity("Calo.Core.Entities.User", b =>
                 {
-                    b.HasOne("Calo.Core.Entities.UserAdditionalData", "Setting")
+                    b.HasOne("Calo.Core.Entities.UserAdditionalData", "AdditionalData")
                         .WithMany()
-                        .HasForeignKey("SettingId");
+                        .HasForeignKey("AdditionalDataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Setting");
+                    b.Navigation("AdditionalData");
                 });
 
             modelBuilder.Entity("Calo.Core.Entities.Diet", b =>

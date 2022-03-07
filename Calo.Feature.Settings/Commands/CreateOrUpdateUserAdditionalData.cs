@@ -58,7 +58,7 @@ namespace Calo.Feature.UserSettings.Commands
             {
                 var userSetting = this.dbContext.Users
                     .Where(x => x.Id == request.UserId)
-                    .Select(x => x.Setting)
+                    .Select(x => x.AdditionalData)
                     .SingleOrDefault();
 
                 if(userSetting == null)
