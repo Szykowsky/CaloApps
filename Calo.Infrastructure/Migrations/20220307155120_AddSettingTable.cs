@@ -9,12 +9,19 @@ namespace Calo.Infrastructure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<Guid>(
+                name: "SelectedDietId",
+                table: "Users",
+                type: "uniqueidentifier",
+                nullable: true,
+                oldClrType: typeof(Guid),
+                oldType: "uniqueidentifier");
+
             migrationBuilder.AddColumn<Guid>(
                 name: "SettingId",
                 table: "Users",
                 type: "uniqueidentifier",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Settings",
@@ -43,8 +50,7 @@ namespace Calo.Infrastructure.Migrations
                 table: "Users",
                 column: "SettingId",
                 principalTable: "Settings",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -63,6 +69,16 @@ namespace Calo.Infrastructure.Migrations
             migrationBuilder.DropColumn(
                 name: "SettingId",
                 table: "Users");
+
+            migrationBuilder.AlterColumn<Guid>(
+                name: "SelectedDietId",
+                table: "Users",
+                type: "uniqueidentifier",
+                nullable: false,
+                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"),
+                oldClrType: typeof(Guid),
+                oldType: "uniqueidentifier",
+                oldNullable: true);
         }
     }
 }

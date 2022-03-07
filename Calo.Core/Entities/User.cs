@@ -7,10 +7,8 @@ namespace Calo.Core.Entities
         public string Login { get; set; }
         public string PasswordHash { get; set; }
         public string Salt { get; set; }
-        public Guid SelectedDietId { get; set; }
-        public Guid SettingId { get; set; }
-
-        [ForeignKey("SettingId")]
+        public Guid? SelectedDietId { get; set; }
+        public Guid? SettingId { get; set; }
         public Setting Setting { get; set; }
     }
 }

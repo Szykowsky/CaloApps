@@ -154,10 +154,10 @@ namespace Calo.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SelectedDietId")
+                    b.Property<Guid?>("SelectedDietId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SettingId")
+                    b.Property<Guid?>("SettingId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -196,9 +196,7 @@ namespace Calo.Infrastructure.Migrations
                 {
                     b.HasOne("Calo.Core.Entities.Setting", "Setting")
                         .WithMany()
-                        .HasForeignKey("SettingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SettingId");
 
                     b.Navigation("Setting");
                 });

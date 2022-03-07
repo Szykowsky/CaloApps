@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Calo.Infrastructure.Migrations
 {
     [DbContext(typeof(CaloContext))]
-    [Migration("20220307143852_AddSettingTable")]
+    [Migration("20220307155120_AddSettingTable")]
     partial class AddSettingTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -156,10 +156,10 @@ namespace Calo.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SelectedDietId")
+                    b.Property<Guid?>("SelectedDietId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SettingId")
+                    b.Property<Guid?>("SettingId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -198,9 +198,7 @@ namespace Calo.Infrastructure.Migrations
                 {
                     b.HasOne("Calo.Core.Entities.Setting", "Setting")
                         .WithMany()
-                        .HasForeignKey("SettingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SettingId");
 
                     b.Navigation("Setting");
                 });

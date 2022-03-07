@@ -21,7 +21,7 @@ namespace Calo.Data
                 user.HasKey(t => t.Id);
                 user.Property(t => t.Id).ValueGeneratedOnAdd();
                 user.HasIndex(t => t.Login).IsUnique(true);
-                user.HasOne(t => t.Setting).WithMany().HasForeignKey(t => t.SettingId);
+                // user.HasOne(t => t.Setting).WithMany().HasForeignKey(t => t.SettingId);
             });
 
             modelBuilder.Entity<Meal>(meal =>

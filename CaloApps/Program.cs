@@ -17,6 +17,7 @@ using Calo.Feature.Users.Services;
 using Calo.Feature.Users;
 using Calo.Feature.Diets;
 using Calo.Feature.Notifications;
+using Calo.Feature.UserSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -97,6 +98,7 @@ builder.Services.RegisterRequestMealsHandlers();
 builder.Services.RegisterRequestUsersHandlers();
 builder.Services.RegisterRequestDietsHandlers();
 builder.Services.RegisterRequestNotificationsHandlers();
+builder.Services.RegisterRequestSettingsHandlers();
 // builder.Services.AddMediatR(typeof(Program).GetTypeInfo().Assembly);
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
