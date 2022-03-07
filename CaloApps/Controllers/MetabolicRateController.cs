@@ -31,6 +31,7 @@ namespace Calo.API.Controllers
                 Gender = model.Gender,
                 Growth = model.Growth,
                 Activity = model.Activity,
+                Formula = model.Formula,
                 UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             });
             return Ok(result);

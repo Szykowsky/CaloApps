@@ -48,6 +48,9 @@ namespace Calo.Data
                 metabolicRate.Property(t => t.Activity).HasConversion(
                         v => v.ToString(),
                         v => (Activity)Enum.Parse(typeof(Activity), v));
+                metabolicRate.Property(t => t.Formula).HasConversion(
+                        v => v.ToString(),
+                        v => (Formula)Enum.Parse(typeof(Formula), v));
             });
         }
     }

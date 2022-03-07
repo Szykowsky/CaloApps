@@ -16,6 +16,7 @@ namespace Calo.Feature.MetabolicRate.Models
             public int Growth { get; set; }
             public int Age { get; set; }
             public Activity Activity { get; set; }
+            public Formula Formula { get; set; }
         }
     }
 }

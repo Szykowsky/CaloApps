@@ -22,6 +22,7 @@ namespace Calo.Feature.MetabolicRate.Commands
             public int Growth { get; set; }
             public int Age { get; set; }
             public Activity Activity { get; set; }
+            public Formula Formula { get; set; }
             public Guid UserId { get; set; }
         }
 
@@ -64,10 +65,11 @@ namespace Calo.Feature.MetabolicRate.Commands
                             metabolicRate.Weight == request.Weight &&
                             metabolicRate.Growth == request.Growth &&
                             metabolicRate.Age == request.Age &&
-                            metabolicRate.Activity == request.Activity)
+                            metabolicRate.Activity == request.Activity &&
+                            metabolicRate.Formula == request.Formula)
                     .SingleOrDefault();
 
-                if(metabolicRate != null)
+                if (metabolicRate != null)
                 {
                     return new RequestStatus(false, "MetabolicRate exist");
                 }
@@ -98,9 +100,26 @@ namespace Calo.Feature.MetabolicRate.Commands
             private static int CalculateBMR(Command command) =>
                 command.Gender switch
                 {
-                    Gender.Male => Convert.ToInt32(88.362f + (13.397f * command.Weight) + (4.799f * command.Growth) + (5.677f * command.Age)),
-                    Gender.Female => Convert.ToInt32(447.593f + (9.247f * command.Weight) + (3.098f * command.Growth) + (4.330f * command.Age)),
+                    Gender.Male => PrepareMaleBMR(command),
+                    Gender.Female => PrepareFemaleBMR(command),
                 };
+
+            private static int PrepareMaleBMR(Command command) =>
+                command.Formula switch
+                {
+                    Formula.HarrisBenedict => Convert.ToInt32(88.362f + (13.397f * command.Weight) + (4.799f * command.Growth) + (5.677f * command.Age)),
+                    Formula.MifflinStJeor => MifflinStJeorBMR(command, 5)
+                };
+
+            private static int PrepareFemaleBMR(Command command) =>
+                command.Formula switch
+                {
+                    Formula.HarrisBenedict => Convert.ToInt32(447.593f + (9.247f * command.Weight) + (3.098f * command.Growth) + (4.330f * command.Age)),
+                    Formula.MifflinStJeor => MifflinStJeorBMR(command, -161)
+                };
+
+            private static int MifflinStJeorBMR(Command command, int genderValue) =>
+                Convert.ToInt32((10 * command.Weight) + (6.25f * command.Growth) - (5 * command.Age) + genderValue);
 
             private static int CalculateAMR(int bmr, Activity activity) =>
                 activity switch
