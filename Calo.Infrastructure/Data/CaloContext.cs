@@ -8,6 +8,7 @@ namespace Calo.Data
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Meal> Meals { get; set; }
         public virtual DbSet<Diet> Diets { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
 
         public CaloContext(DbContextOptions<CaloContext> options) : base(options) { }
 
@@ -20,6 +21,7 @@ namespace Calo.Data
                 user.HasKey(t => t.Id);
                 user.Property(t => t.Id).ValueGeneratedOnAdd();
                 user.HasIndex(t => t.Login).IsUnique(true);
+                user.HasOne(t => t.Setting).WithMany().HasForeignKey(t => t.SettingId);
             });
 
             modelBuilder.Entity<Meal>(meal =>
@@ -34,6 +36,12 @@ namespace Calo.Data
                 diet.HasKey(t => t.Id);
                 diet.Property(t => t.Id).ValueGeneratedOnAdd();
                 diet.HasOne(t => t.User).WithMany().HasForeignKey(t => t.UserId);
+            });
+
+            modelBuilder.Entity<Setting>(diet =>
+            {
+                diet.HasKey(t => t.Id);
+                diet.Property(t => t.Id).ValueGeneratedOnAdd();
             });
         }
     }
