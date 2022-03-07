@@ -57,6 +57,7 @@ namespace Calo.Feature.MetabolicRate.Commands
             {
                 this.dbContext = dbContext;
             }
+
             public async Task<RequestStatus> Handle(Command request, CancellationToken cancellationToken)
             {
                 var metabolicRate = this.dbContext.MetabolicRate
