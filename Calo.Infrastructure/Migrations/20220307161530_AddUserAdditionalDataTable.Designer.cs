@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Calo.Infrastructure.Migrations
 {
     [DbContext(typeof(CaloContext))]
-    [Migration("20220307155120_AddSettingTable")]
-    partial class AddSettingTable
+    [Migration("20220307161530_AddUserAdditionalDataTable")]
+    partial class AddUserAdditionalDataTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -103,35 +103,6 @@ namespace Calo.Infrastructure.Migrations
                     b.ToTable("Meals");
                 });
 
-            modelBuilder.Entity("Calo.Core.Entities.Setting", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Growth")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Settings");
-                });
-
             modelBuilder.Entity("Calo.Core.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -172,6 +143,35 @@ namespace Calo.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Calo.Core.Entities.UserAdditionalData", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Growth")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Settings");
+                });
+
             modelBuilder.Entity("Calo.Core.Entities.Diet", b =>
                 {
                     b.HasOne("Calo.Core.Entities.User", "User")
@@ -196,7 +196,7 @@ namespace Calo.Infrastructure.Migrations
 
             modelBuilder.Entity("Calo.Core.Entities.User", b =>
                 {
-                    b.HasOne("Calo.Core.Entities.Setting", "Setting")
+                    b.HasOne("Calo.Core.Entities.UserAdditionalData", "Setting")
                         .WithMany()
                         .HasForeignKey("SettingId");
 

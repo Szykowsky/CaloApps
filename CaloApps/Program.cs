@@ -98,7 +98,7 @@ builder.Services.RegisterRequestMealsHandlers();
 builder.Services.RegisterRequestUsersHandlers();
 builder.Services.RegisterRequestDietsHandlers();
 builder.Services.RegisterRequestNotificationsHandlers();
-builder.Services.RegisterRequestSettingsHandlers();
+builder.Services.RegisterRequestUserAdditionalDataHandlers();
 // builder.Services.AddMediatR(typeof(Program).GetTypeInfo().Assembly);
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

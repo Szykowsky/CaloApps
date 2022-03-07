@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Calo.Feature.UserSettings.Models
 {
-    public class SettingModel
+    public class UserAdditionalDataModel
     {
         public class BaseModel
         {

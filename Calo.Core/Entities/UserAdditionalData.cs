@@ -1,6 +1,6 @@
 ﻿namespace Calo.Core.Entities
 {
-    public class Setting : BaseEntity
+    public class UserAdditionalData : BaseEntity
     {
         public Gender Gender { get; set; }
         public int Weight { get; set; }

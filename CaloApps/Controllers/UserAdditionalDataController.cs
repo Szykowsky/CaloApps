@@ -10,11 +10,11 @@ namespace Calo.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SettingsController : ControllerBase
+    public class UserAdditionalDataController : ControllerBase
     {
         private readonly IMediator mediator;
         private readonly IHttpContextAccessor httpContextAccessor;
-        public SettingsController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
+        public UserAdditionalDataController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             this.mediator = mediator;
             this.httpContextAccessor = httpContextAccessor;
@@ -22,9 +22,9 @@ namespace Calo.API.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> GetDietsAsync([FromBody] SettingModel.BaseModel model)
+        public async Task<IActionResult> GetDietsAsync([FromBody] UserAdditionalDataModel.BaseModel model)
         {
-            var result = await this.mediator.Send(new CreateOrUpdateUserSettings.Command
+            var result = await this.mediator.Send(new CreateOrUpdateUserAdditionalData.Command
             {
                 Age = model.Age,
                 Weight = model.Weight,

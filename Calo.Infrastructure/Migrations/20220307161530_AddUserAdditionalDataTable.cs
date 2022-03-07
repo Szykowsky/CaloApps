@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Calo.Infrastructure.Migrations
 {
-    public partial class AddSettingTable : Migration
+    public partial class AddUserAdditionalDataTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

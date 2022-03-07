@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Calo.Feature.UserSettings.Commands
 {
-    public class CreateOrUpdateUserSettings
+    public class CreateOrUpdateUserAdditionalData
     {
         public class Command : IRequest<RequestStatus>
         {
@@ -81,9 +81,9 @@ namespace Calo.Feature.UserSettings.Commands
                 return new RequestStatus(true, "Updated settings");
             }
 
-            private static Setting CreateSetting(Command command)
+            private static UserAdditionalData CreateSetting(Command command)
             {
-                return new Setting
+                return new UserAdditionalData
                 {
                     CreatedDate = DateTime.Now,
                     Age = command.Age,
