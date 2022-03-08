@@ -1,10 +1,12 @@
 ﻿using Calo.Feature.Meals.Commands;
 using Calo.Feature.Meals.Models;
 using Calo.Feature.Meals.Queries;
+using Calo.Feature.Worksheet.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CaloApps.Controllers
 {
@@ -13,9 +15,12 @@ namespace CaloApps.Controllers
     public class MealController : ControllerBase
     {
         private readonly IMediator mediator;
-        public MealController(IMediator mediator)
+        private readonly IHttpContextAccessor httpContextAccessor;
+
+        public MealController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             this.mediator = mediator;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         [HttpPost]
@@ -54,6 +59,19 @@ namespace CaloApps.Controllers
             });
 
             return Ok(result);
+        }
+
+        [HttpPost("export-xlsx")]
+        [Authorize]
+        public async Task<IActionResult> ExportMealsToExcel([FromBody] Guid dietId)
+        {
+            var result = await this.mediator.Send(new ExportMealsToExcel.Command
+            {
+                DietId=dietId,
+                UserId= Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            });
+
+            return File(result.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "meals.xlsx");
         }
     }
 }

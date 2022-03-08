@@ -18,8 +18,11 @@ using Calo.Feature.Users;
 using Calo.Feature.Diets;
 using Calo.Feature.Notifications;
 using Calo.Feature.MetabolicRate;
+using Calo.Feature.Worksheet;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
+ExcelPackage.LicenseContext = LicenseContext.Commercial;
 
 // Add services to the container.
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -99,6 +102,7 @@ builder.Services.RegisterRequestUsersHandlers();
 builder.Services.RegisterRequestDietsHandlers();
 builder.Services.RegisterRequestNotificationsHandlers();
 builder.Services.RegisterRequestUserAdditionalDataHandlers();
+builder.Services.RegisterRequestWorksheetHandlers();
 // builder.Services.AddMediatR(typeof(Program).GetTypeInfo().Assembly);
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

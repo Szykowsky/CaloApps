@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Calo.API.Controllers
 {
@@ -10,9 +11,12 @@ namespace Calo.API.Controllers
     public class NotificationController : ControllerBase
     {
         private readonly IMediator mediator;
-        public NotificationController(IMediator mediator)
+        private readonly IHttpContextAccessor httpContextAccessor;
+
+        public NotificationController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             this.mediator = mediator;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet("diet")]
@@ -20,7 +24,7 @@ namespace Calo.API.Controllers
         {
             var result = await this.mediator.Send(new GetDietStatus.Query
             {
-                UserId = Guid.Parse("6D941A0D-B901-4F9F-B204-08D9FA1EDA9B")
+                UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             });
             return Ok(result);
         }

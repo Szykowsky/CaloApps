@@ -14,6 +14,7 @@ namespace Calo.API.Controllers
     {
         private readonly IMediator mediator;
         private readonly IHttpContextAccessor httpContextAccessor;
+
         public MetabolicRateController(IMediator mediator, IHttpContextAccessor httpContextAccessor)
         {
             this.mediator = mediator;

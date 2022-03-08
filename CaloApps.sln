@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.Notifications"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.MetabolicRate", "Calo.Feature.Settings\Calo.Feature.MetabolicRate.csproj", "{3690758F-1F15-40E3-A97F-A4329C15D698}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Feature.Worksheet", "Calo.Feature.Worksheet\Calo.Feature.Worksheet.csproj", "{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{3690758F-1F15-40E3-A97F-A4329C15D698}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3690758F-1F15-40E3-A97F-A4329C15D698}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3690758F-1F15-40E3-A97F-A4329C15D698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{E684ADFE-FBA9-4994-8F46-EEBC0EF7A4B9} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
 		{35643496-B2D0-4DE6-8063-F625276EC992} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
 		{3690758F-1F15-40E3-A97F-A4329C15D698} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
+		{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18A2AC86-404C-4C8C-97FB-8ACB07DC9667}
