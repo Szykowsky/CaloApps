@@ -71,7 +71,7 @@ namespace CaloApps.Controllers
                 UserId= Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             });
 
-            return File(result.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "meals.xlsx");
+            return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "meals.xlsx");
         }
     }
 }

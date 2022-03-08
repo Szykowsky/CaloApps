@@ -9,13 +9,13 @@ namespace Calo.Feature.Worksheet.Commands
 {
     public class ExportMealsToExcel
     {
-        public class Command : IRequest<MemoryStream>
+        public class Command : IRequest<byte[]>
         {
             public Guid DietId { get; set; }
             public Guid UserId { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command, MemoryStream>
+        public class Handler : IRequestHandler<Command, byte[]>
         {
             private readonly CaloContext dbContext;
 
@@ -24,7 +24,7 @@ namespace Calo.Feature.Worksheet.Commands
                 this.dbContext = dbContext;
             }
 
-            public async Task<MemoryStream> Handle(Command command, CancellationToken cancellationToken)
+            public async Task<byte[]> Handle(Command command, CancellationToken cancellationToken)
             {
                 var meals = await this.dbContext.Meals
                     .Where(x => x.DietId == command.DietId && x.Diet.UserId == command.UserId)
@@ -65,7 +65,7 @@ namespace Calo.Feature.Worksheet.Commands
                     xlPackage.Save();
                 }
 
-                return stream;
+                return stream.ToArray();
             }
         }
     }
