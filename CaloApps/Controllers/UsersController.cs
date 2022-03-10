@@ -8,6 +8,7 @@ using System.Security.Claims;
 namespace CaloApps.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -20,6 +21,7 @@ namespace CaloApps.Controllers
         }
 
         [HttpPost("create")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateUser([FromBody] CreateUser.Command createUserCommand)
         {
             var result = await this.mediator.Send(createUserCommand);
@@ -32,6 +34,7 @@ namespace CaloApps.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> SignInUser([FromBody] LoginUser.Command loginCommand)
         {
             var result = await this.mediator.Send(loginCommand);
@@ -43,7 +46,6 @@ namespace CaloApps.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpPut("diet")]
         public async Task<IActionResult> UpdateUserCurrentDiet([FromBody] Guid dietId)
         {

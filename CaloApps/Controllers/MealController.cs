@@ -11,6 +11,7 @@ using System.Security.Claims;
 namespace CaloApps.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class MealController : ControllerBase
     {
@@ -24,9 +25,16 @@ namespace CaloApps.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMealAsync([FromBody] AddMeal.Command addMealCommand)
+        public async Task<IActionResult> AddMealAsync([FromBody] MealModels.CreateOrUpdate model)
         {
-            var result = await this.mediator.Send(addMealCommand);
+            var result = await this.mediator.Send(new AddMeal.Command
+            { 
+                DietId = model.DietId,
+                Date = model.Date,
+                Kcal = model.Kcal,
+                Name = model.Name,
+                UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            });
             return Ok(result);
         }
 
@@ -45,30 +53,31 @@ namespace CaloApps.Controllers
             { 
                 DietId = dietId, 
                 MealsFilterModel = mealSearchModel,
+                UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             });
             return Ok(result);
         }
 
         [HttpPatch("{dietId}")]
-        public async Task<IActionResult> PatchMeals([FromRoute] Guid dietId, [FromBody] JsonPatchDocument<IDictionary<Guid, MealModels.Patch>> patchDocument)
+        public async Task<IActionResult> PatchMeals([FromRoute] Guid dietId, [FromBody] JsonPatchDocument<IDictionary<Guid, MealModels.CreateOrUpdate>> patchDocument)
         {
             var result = await this.mediator.Send(new PatchMeals.Command
             {
                 DietId = dietId,
-                PatchMealsModel = patchDocument
+                PatchMealsModel = patchDocument,
+                UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             });
 
             return Ok(result);
         }
 
         [HttpPost("export-xlsx")]
-        [Authorize]
         public async Task<IActionResult> ExportMealsToExcel([FromBody] Guid dietId)
         {
             var result = await this.mediator.Send(new ExportMealsToExcel.Command
             {
-                DietId=dietId,
-                UserId= Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+                DietId = dietId,
+                UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             });
 
             return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "meals.xlsx");

@@ -12,7 +12,8 @@ namespace Calo.Feature.Meals.Commands
         public class Command : IRequest<PatchMealsResult>
         {
             public Guid DietId { get; set; }
-            public JsonPatchDocument<IDictionary<Guid, MealModels.Patch>> PatchMealsModel { get; set; }
+            public Guid UserId { get; set; }
+            public JsonPatchDocument<IDictionary<Guid, MealModels.CreateOrUpdate>> PatchMealsModel { get; set; }
         }
 
         public class PatchMealsResult
@@ -30,13 +31,12 @@ namespace Calo.Feature.Meals.Commands
             }
             public async Task<PatchMealsResult> Handle(Command request, CancellationToken cancellationToken)
             {
-                // TODO security risk should also get by user id
                 var meals = await this.dbContext.Meals
-                    .Where(x => x.DietId == request.DietId)
+                    .Where(x => x.DietId == request.DietId && x.Diet.UserId == request.UserId)
                     .AsNoTracking()
                     .ToListAsync(cancellationToken);
 
-                var mealPatchListModel = meals.Select(x => new MealModels.Patch
+                var mealPatchListModel = meals.Select(x => new MealModels.CreateOrUpdate
                 {
                     DietId = x.DietId,
                     Date = x.Date,

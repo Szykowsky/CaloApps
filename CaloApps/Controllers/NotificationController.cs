@@ -1,5 +1,6 @@
 ﻿using Calo.Feature.Notifications.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -7,6 +8,7 @@ using System.Security.Claims;
 namespace Calo.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class NotificationController : ControllerBase
     {

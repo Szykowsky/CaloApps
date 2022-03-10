@@ -11,7 +11,7 @@ namespace Calo.Feature.Meals.Models
             public DateTime Date { get; set; }
         }
 
-        public class Patch : Basic
+        public class CreateOrUpdate : Basic
         {
             public Guid DietId { get; set; }
         }

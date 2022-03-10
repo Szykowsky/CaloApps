@@ -9,6 +9,7 @@ using System.Security.Claims;
 namespace Calo.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class MetabolicRateController : ControllerBase
     {
@@ -21,7 +22,6 @@ namespace Calo.API.Controllers
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> GetDietsAsync([FromBody] MetabolicRateModel.BaseModel model)
         {

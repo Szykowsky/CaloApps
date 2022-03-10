@@ -40,7 +40,6 @@ namespace CaloApps.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetDietsAsync()
         {

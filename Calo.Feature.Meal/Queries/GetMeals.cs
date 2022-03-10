@@ -14,6 +14,7 @@ namespace Calo.Feature.Meals.Queries
         public class Query : IRequest<QueryMealsResult>
         {
             public Guid DietId { get; set; }
+            public Guid UserId { get; set; }
             public MealModels.Filter? MealsFilterModel { get; set; }
         }
 
@@ -61,7 +62,7 @@ namespace Calo.Feature.Meals.Queries
             {
                 var meals = this.dbContext.Meals
                     .OrderBy(m => m.Date)
-                    .Where(m => m.DietId == request.DietId)
+                    .Where(m => m.DietId == request.DietId && m.Diet.UserId == request.UserId)
                     .AsQueryable();
 
                 if(request.MealsFilterModel == null || request.MealsFilterModel.DateType == MealModels.DateType.None)

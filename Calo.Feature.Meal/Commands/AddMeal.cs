@@ -15,6 +15,7 @@ namespace Calo.Feature.Meals.Commands
             public string Name { get; set; }
             public DateTime Date { get; set; }
             public Guid DietId { get; set; }
+            public Guid UserId { get; set; }
         }
 
         public class AddMealValidator : AbstractValidator<Command>
@@ -52,6 +53,12 @@ namespace Calo.Feature.Meals.Commands
             }
             public async Task<RequestStatus> Handle(Command request, CancellationToken cancellationToken)
             {
+                var isLoggedUserDiet = this.dbContext.Diets.Any(x => x.UserId == request.UserId && x.Id == request.DietId);
+                if(!isLoggedUserDiet)
+                {
+                    return new RequestStatus(false, "Can not add meal");
+                }
+
                 var meal = new Meal
                 {
                     Kcal = request.Kcal,
