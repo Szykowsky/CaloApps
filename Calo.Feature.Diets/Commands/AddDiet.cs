@@ -67,6 +67,7 @@ namespace Calo.Feature.Diets.Commands
                     Minerals = request.Minerals,
                     UserId = request.UserId,
                     Vitamins = request.Vitamins,
+                    CreatedDate = DateTime.Now,
                 };
 
                 await this.dbContext.AddAsync(diet, cancellationToken);

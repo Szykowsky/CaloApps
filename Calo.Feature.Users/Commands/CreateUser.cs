@@ -73,6 +73,7 @@ namespace Calo.Feature.Users.Commands
                     Login = command.Login,
                     PasswordHash = passwordHash,
                     Salt = salt,
+                    CreatedDate = DateTime.Now,
                 };
 
                 await this.dbContext.Users.AddAsync(user, cancellationToken);

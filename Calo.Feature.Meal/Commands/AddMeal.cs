@@ -65,6 +65,7 @@ namespace Calo.Feature.Meals.Commands
                     Name = request.Name,
                     Date = request.Date,
                     DietId = request.DietId,
+                    CreatedDate = DateTime.Now,
                 };
 
                 await this.dbContext.AddAsync(meal, cancellationToken);
