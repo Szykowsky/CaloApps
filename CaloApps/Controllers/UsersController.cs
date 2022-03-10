@@ -40,7 +40,20 @@ namespace CaloApps.Controllers
             var result = await this.mediator.Send(loginCommand);
             if (result == null)
             {
-                return BadRequest(result);
+                return BadRequest();
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("refresh-token")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RefreshTokenUser([FromBody] RefreshUserToken.Command refreshtokenCommand)
+        {
+            var result = await this.mediator.Send(refreshtokenCommand);
+            if (result == null)
+            {
+                return Unauthorized();
             }
 
             return Ok(result);

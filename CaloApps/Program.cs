@@ -68,7 +68,7 @@ builder.Services.AddTransient<ExceptionMiddleware>();
 
 builder.Services.AddAuthorization();
 
-var secret = builder.Configuration.GetSection("AppSettings:Secret");
+var secret = builder.Configuration.GetSection("AppSettings:JWTSecurity:AccessTokenSecret");
 var key = Encoding.UTF8.GetBytes(secret.Value);
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 builder.Services.AddAuthentication(options =>
@@ -79,6 +79,7 @@ builder.Services.AddAuthentication(options =>
 })
     .AddJwtBearer(options =>
     {
+        options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -88,7 +89,8 @@ builder.Services.AddAuthentication(options =>
 
             ValidIssuer = "https://localhost:44323", // TODO move to gonfiguration
             ValidAudience = "https://localhost:44323", // TODO move to gonfiguration
-            IssuerSigningKey = new SymmetricSecurityKey(key)
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ClockSkew = TimeSpan.Zero
         };
     });
 
