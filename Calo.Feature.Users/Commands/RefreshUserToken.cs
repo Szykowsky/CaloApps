@@ -43,7 +43,7 @@ namespace Calo.Feature.Users.Commands
             public async Task<RefreshUserTokenResultModel> Handle(Command command, CancellationToken cancellationToken)
             {
                 var principal = this.tokenService.GetPrincipalFromToken(command.AccessToken, this.appSettings.JWTSecurity.AccessTokenSecret);
-                if(principal == null || principal?.Identity?.Name == null)
+                if (principal == null || principal?.Identity?.Name == null)
                 {
                     return null;
                 }
@@ -57,7 +57,7 @@ namespace Calo.Feature.Users.Commands
                 }
 
                 var isRefreshTokenValid = this.tokenService.Validate(command.RefreshToken, this.appSettings.JWTSecurity.RefreshTokenSecret);
-                if(!isRefreshTokenValid)
+                if (!isRefreshTokenValid)
                 {
                     return null;
                 }

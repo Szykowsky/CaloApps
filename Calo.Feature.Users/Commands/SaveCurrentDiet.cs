@@ -30,7 +30,7 @@ namespace Calo.Feature.Users.Commands
             public async Task<RequestStatus> Handle(Command command, CancellationToken cancellationToken)
             {
                 var user = await this.dbContext.Users.Where(x => x.Id == command.Userid).FirstOrDefaultAsync(cancellationToken);
-                if(user == null)
+                if (user == null)
                 {
                     return new RequestStatus(false, "User not logged in");
                 }

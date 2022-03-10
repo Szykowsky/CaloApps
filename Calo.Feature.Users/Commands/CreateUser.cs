@@ -11,7 +11,7 @@ namespace Calo.Feature.Users.Commands
 {
     public class CreateUser
     {
-        public class Command : IRequest<CreateUserResult> 
+        public class Command : IRequest<CreateUserResult>
         {
             public string Login { get; set; }
             public string Password { get; set; }
@@ -56,7 +56,7 @@ namespace Calo.Feature.Users.Commands
             public async Task<CreateUserResult> Handle(Command command, CancellationToken cancellationToken)
             {
                 var isUserExists = await dbContext.Users.AnyAsync(u => u.Login == command.Login, cancellationToken);
-                if(isUserExists)
+                if (isUserExists)
                 {
                     return new CreateUserResult
                     {

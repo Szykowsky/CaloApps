@@ -53,7 +53,7 @@ namespace Calo.Feature.Users.Services
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var principal = jwtSecurityTokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
 
-            if (validatedToken is not JwtSecurityToken jwtSecurityToken || 
+            if (validatedToken is not JwtSecurityToken jwtSecurityToken ||
                 !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha512, StringComparison.InvariantCultureIgnoreCase))
             {
                 return null;
@@ -78,10 +78,10 @@ namespace Calo.Feature.Users.Services
             };
         }
 
-        private static SymmetricSecurityKey GetSymmetricSecurityKey(string secretKey) => 
+        private static SymmetricSecurityKey GetSymmetricSecurityKey(string secretKey) =>
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
-        private static SigningCredentials GetSigningCredentials(SymmetricSecurityKey secretSymmetricKey) => 
+        private static SigningCredentials GetSigningCredentials(SymmetricSecurityKey secretSymmetricKey) =>
             new SigningCredentials(secretSymmetricKey, SecurityAlgorithms.HmacSha512);
 
     }

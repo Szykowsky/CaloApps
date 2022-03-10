@@ -59,7 +59,7 @@ namespace Calo.Feature.Users.Commands
                 };
                 var accessToken = this.tokenService.GetToken(claims, this.appSettings.JWTSecurity.AccessTokenSecret, this.appSettings.JWTSecurity.AccessTokenExpiredTime);
                 var refreshToken = this.tokenService.GetToken(claims, this.appSettings.JWTSecurity.RefreshTokenSecret, this.appSettings.JWTSecurity.RefreshTokenExpiredTime);
-                
+
                 user.RefreshToken = refreshToken;
                 this.dbContext.Update(user);
                 await this.dbContext.SaveChangesAsync(cancellationToken);
