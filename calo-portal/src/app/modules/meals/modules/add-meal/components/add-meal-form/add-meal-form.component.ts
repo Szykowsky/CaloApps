@@ -12,14 +12,14 @@ import { AddMealModel } from '../../models/add-meal-model';
     selector: 'calo-add-meal-form',
     templateUrl: './add-meal-form.component.html',
     styleUrls: ['./add-meal-form.component.scss'],
-    // changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddMealFormComponent {
     @Input() addMealForm: FormGroup | undefined;
     @Input() diets: { [key: string]: string; } | null | undefined
     @Output() submitForm: EventEmitter<AddMealModel> = new EventEmitter();
 
-    addMeal() {
+    handleAddMeal() {
         const addMealModel: AddMealModel = { dietId: this.addMealForm?.controls['diet']?.value, ...this.addMealForm?.value };
         this.submitForm.emit(addMealModel);
     }
