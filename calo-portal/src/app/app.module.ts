@@ -10,9 +10,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, PageNotFoundComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
