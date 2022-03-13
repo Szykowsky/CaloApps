@@ -107,6 +107,19 @@
           }
         }
       }
+    },
+    "sand-soul":{
+      "root": "lib/projects/sand-soul",
+      "projectType": "library",
+      "architect": {
+        "build":{
+          "builder":"@angular-devkit/build-angular:ng-packagr:build",
+          "options": {
+            "tsConfig":"lib/projects/sand-soul/tsconfig.lib.json",
+            "project":"lib/projects/sand-soul/ng-package.json"
+          }
+        }
+      }
     }
   },
   "defaultProject": "calo-portal"

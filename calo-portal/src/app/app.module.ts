@@ -11,6 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { SandSoulModule } from 'sand-soul';
 
 @NgModule({
     declarations: [AppComponent, PageNotFoundComponent],
@@ -27,6 +28,7 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
             maxAge: 25,
             logOnly: environment.production,
         }),
+        SandSoulModule
     ],
     providers: [],
     bootstrap: [AppComponent],
