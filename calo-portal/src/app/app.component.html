@@ -12,6 +12,8 @@
     </button>
 </mat-toolbar>
 <div class="main-container">
+    <sand-neon-paragraph>Some test text</sand-neon-paragraph>
+    <sand-neon-paragraph [isFlicker]="true">Some flicker test text</sand-neon-paragraph>
     <sand-primary-button>Button</sand-primary-button>
     <router-outlet></router-outlet>
     <a class="add-button" mat-fab color="primary" [matMenuTriggerFor]="menu">
