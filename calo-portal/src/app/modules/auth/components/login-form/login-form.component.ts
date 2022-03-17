@@ -18,6 +18,6 @@ export class LoginFormComponent {
   }
 
   handleLoginClicked(){
-    console.log('login clicked');
+    console.log('login clicked', this.loginForm.value);
   }
 }

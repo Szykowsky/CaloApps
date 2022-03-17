@@ -4,15 +4,12 @@
     (ngSubmit)="handleLoginClicked()"
 >
     <div class="inputs">
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" />
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" />
-        </mat-form-field>
+        <sand-custom-input [type]="'email'" formControlName="email">
+            Email
+        </sand-custom-input>
+        <sand-custom-input [type]="'password'" formControlName="password">
+            Password
+        </sand-custom-input>
     </div>
 
     <button
