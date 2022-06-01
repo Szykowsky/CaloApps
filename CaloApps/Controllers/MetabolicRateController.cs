@@ -23,7 +23,7 @@ namespace Calo.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetDietsAsync([FromBody] MetabolicRateModel.BaseModel model)
+        public async Task<IActionResult> MetabolicRate([FromBody] MetabolicRateModel.BaseModel model)
         {
             var result = await this.mediator.Send(new CreateMetabolicRate.Command
             {

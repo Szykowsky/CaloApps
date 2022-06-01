@@ -13,6 +13,7 @@ namespace Calo.Core.Entities
         public int BasalMetabolicRate { get; set; }
         public int ActiveMetabolicRate { get; set; }
         public Guid UserId { get; set; }
+        public bool IsActive { get; set; }
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }

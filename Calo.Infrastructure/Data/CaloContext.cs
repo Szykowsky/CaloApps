@@ -51,6 +51,7 @@ namespace Calo.Data
                 metabolicRate.Property(t => t.Formula).HasConversion(
                         v => v.ToString(),
                         v => (Formula)Enum.Parse(typeof(Formula), v));
+                metabolicRate.Property(t => t.IsActive).HasDefaultValue(true);
             });
         }
     }

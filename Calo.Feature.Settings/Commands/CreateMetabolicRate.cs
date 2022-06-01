@@ -61,13 +61,7 @@ namespace Calo.Feature.MetabolicRate.Commands
             public async Task<RequestStatus> Handle(Command request, CancellationToken cancellationToken)
             {
                 var metabolicRate = this.dbContext.MetabolicRate
-                    .Where(x => x.UserId == request.UserId)
-                    .Where(metabolicRate => metabolicRate.Gender == request.Gender &&
-                            metabolicRate.Weight == request.Weight &&
-                            metabolicRate.Growth == request.Growth &&
-                            metabolicRate.Age == request.Age &&
-                            metabolicRate.Activity == request.Activity &&
-                            metabolicRate.Formula == request.Formula)
+                    .Where(x => x.UserId == request.UserId && x.IsActive)
                     .SingleOrDefault();
 
                 if (metabolicRate != null)
@@ -93,6 +87,7 @@ namespace Calo.Feature.MetabolicRate.Commands
                     Growth = command.Growth,
                     Weight = command.Weight,
                     UserId = command.UserId,
+                    Formula = command.Formula,
                     BasalMetabolicRate = bmr,
                     ActiveMetabolicRate = CalculateAMR(bmr, command.Activity)
                 };
