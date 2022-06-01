@@ -2,6 +2,7 @@
 using Calo.Core.Models;
 using Calo.Data;
 using Calo.Domain.Entities.MetabolicRate;
+using Calo.Feature.MetabolicRate.CommonValidators;
 using Calo.Feature.MetabolicRate.Helpers;
 using Calo.Feature.MetabolicRate.Models;
 using Calo.Feature.MetabolicRate.Services;
@@ -17,20 +18,14 @@ namespace Calo.Feature.MetabolicRate.Commands
 {
     public class CreateMetabolicRate
     {
-        public class Command : IRequest<RequestStatus>
+        public class Command : MetabolicRateModel.CreateOrUpdateModel,  IRequest<RequestStatus>
         {
-            public Gender Gender { get; set; }
-            public int Weight { get; set; }
-            public int Growth { get; set; }
-            public int Age { get; set; }
-            public Activity Activity { get; set; }
-            public Formula Formula { get; set; }
-            public Guid UserId { get; set; }
+
         }
 
-        public class AddMealValidator : AbstractValidator<Command>
+        public class CreateMetabolicRateValidator : AbstractValidator<Command>
         {
-            public AddMealValidator()
+            public CreateMetabolicRateValidator()
             {
                 RuleFor(x => x.UserId)
                     .NotEmpty()
