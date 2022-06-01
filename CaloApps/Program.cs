@@ -20,6 +20,7 @@ using Calo.Feature.Notifications;
 using Calo.Feature.MetabolicRate;
 using Calo.Feature.Worksheet;
 using OfficeOpenXml;
+using Calo.Feature.MetabolicRate.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 ExcelPackage.LicenseContext = LicenseContext.Commercial;
@@ -62,6 +63,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IMetabolicRateService, MetabolicRateService>();
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddTransient<ExceptionMiddleware>();

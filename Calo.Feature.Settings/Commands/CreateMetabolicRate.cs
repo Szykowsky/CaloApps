@@ -3,6 +3,7 @@ using Calo.Core.Models;
 using Calo.Data;
 using Calo.Feature.MetabolicRate.Helpers;
 using Calo.Feature.MetabolicRate.Models;
+using Calo.Feature.MetabolicRate.Services;
 using FluentValidation;
 using MediatR;
 using System;
@@ -52,10 +53,11 @@ namespace Calo.Feature.MetabolicRate.Commands
         public class Handler : IRequestHandler<Command, RequestStatus>
         {
             private readonly CaloContext dbContext;
-
-            public Handler(CaloContext dbContext)
+            private readonly IMetabolicRateService metabolicRateService;
+            public Handler(CaloContext dbContext, IMetabolicRateService metabolicRateService)
             {
                 this.dbContext = dbContext;
+                this.metabolicRateService = metabolicRateService;
             }
 
             public async Task<RequestStatus> Handle(Command request, CancellationToken cancellationToken)
@@ -69,16 +71,16 @@ namespace Calo.Feature.MetabolicRate.Commands
                     return new RequestStatus(false, "MetabolicRate exist");
                 }
 
-                var newMetabolicRate = CreateMetabolicRate(request);
+                var newMetabolicRate = this.CreateMetabolicRate(request);
                 await this.dbContext.AddAsync(newMetabolicRate, cancellationToken);
                 await this.dbContext.SaveChangesAsync(cancellationToken);
 
                 return new RequestStatus(true, "Updated MetabolicRate");
             }
 
-            private static Core.Entities.MetabolicRate CreateMetabolicRate(Command command)
+            private Core.Entities.MetabolicRate CreateMetabolicRate(Command command)
             {
-                var bmr = CalculateBMR(command);
+                var bmr = this.metabolicRateService.CalculateBMR(command.Gender, command.Formula, command.Weight, command.Growth, command.Age);
                 return new Core.Entities.MetabolicRate
                 {
                     CreatedDate = DateTime.Now,
@@ -89,43 +91,9 @@ namespace Calo.Feature.MetabolicRate.Commands
                     UserId = command.UserId,
                     Formula = command.Formula,
                     BasalMetabolicRate = bmr,
-                    ActiveMetabolicRate = CalculateAMR(bmr, command.Activity)
+                    ActiveMetabolicRate = this.metabolicRateService.CalculateAMR(bmr, command.Activity)
                 };
             }
-
-            private static int CalculateBMR(Command command) =>
-                command.Gender switch
-                {
-                    Gender.Male => PrepareMaleBMR(command),
-                    Gender.Female => PrepareFemaleBMR(command),
-                };
-
-            private static int PrepareMaleBMR(Command command) =>
-                command.Formula switch
-                {
-                    Formula.HarrisBenedict => Convert.ToInt32(88.362f + (13.397f * command.Weight) + (4.799f * command.Growth) + (5.677f * command.Age)),
-                    Formula.MifflinStJeor => MifflinStJeorBMR(command, 5)
-                };
-
-            private static int PrepareFemaleBMR(Command command) =>
-                command.Formula switch
-                {
-                    Formula.HarrisBenedict => Convert.ToInt32(447.593f + (9.247f * command.Weight) + (3.098f * command.Growth) + (4.330f * command.Age)),
-                    Formula.MifflinStJeor => MifflinStJeorBMR(command, -161)
-                };
-
-            private static int MifflinStJeorBMR(Command command, int genderValue) =>
-                Convert.ToInt32((10 * command.Weight) + (6.25f * command.Growth) - (5 * command.Age) + genderValue);
-
-            private static int CalculateAMR(int bmr, Activity activity) =>
-                activity switch
-                {
-                    Activity.Sedentary => Convert.ToInt32(bmr * 1.2),
-                    Activity.LightlyActive => Convert.ToInt32(bmr * 1.375),
-                    Activity.ModeratelyActive => Convert.ToInt32(bmr * 1.55),
-                    Activity.Active => Convert.ToInt32(bmr * 1.725),
-                    Activity.VeryActive => Convert.ToInt32(bmr * 1.9),
-                };
         }
     }
 }
