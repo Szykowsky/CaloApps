@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.API", "CaloApps\Calo.API.csproj", "{B2F8AC1C-CDD8-4CC0-9FE9-C5AFB3A0A198}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Core", "Calo.Core\Calo.Core.csproj", "{DEDA010F-9441-4077-A45E-E456A769CC6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Domain", "Calo.Core\Calo.Domain.csproj", "{DEDA010F-9441-4077-A45E-E456A769CC6A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Infrastructure", "Calo.Infrastructure\Calo.Infrastructure.csproj", "{C3018902-88CF-4E7A-9CBB-501011E5A22D}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.Notifications"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.MetabolicRate", "Calo.Feature.Settings\Calo.Feature.MetabolicRate.csproj", "{3690758F-1F15-40E3-A97F-A4329C15D698}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Feature.Worksheet", "Calo.Feature.Worksheet\Calo.Feature.Worksheet.csproj", "{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.Worksheet", "Calo.Feature.Worksheet\Calo.Feature.Worksheet.csproj", "{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Calo.Core\Calo.Core.csproj" />
+    <ProjectReference Include="..\Calo.Core\Calo.Domain.csproj" />
   </ItemGroup>
 
 </Project>

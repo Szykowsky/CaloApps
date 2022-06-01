@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Calo.Domain.Base;
+using Calo.Domain.Entities.MetabolicRate;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Calo.Core.Entities
 {

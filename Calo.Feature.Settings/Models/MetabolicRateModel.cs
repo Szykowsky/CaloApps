@@ -1,4 +1,5 @@
 ﻿using Calo.Core.Entities;
+using Calo.Domain.Entities.MetabolicRate;
 using System;
 using System.Collections.Generic;
 using System.Linq;

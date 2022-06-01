@@ -1,5 +1,5 @@
 ﻿
-namespace Calo.Core.Entities
+namespace Calo.Domain.Base
 {
     public class BaseEntity
     {
@@ -9,6 +9,11 @@ namespace Calo.Core.Entities
         public DateTime ModifiedDate { get; set; }
 
         public BaseEntity()
+        {
+            this.SetModifiedDate();
+        }
+
+        public void SetModifiedDate()
         {
             this.ModifiedDate = DateTime.Now;
         }

@@ -1,6 +1,7 @@
 ﻿using Calo.Core.Entities;
 using Calo.Core.Models;
 using Calo.Data;
+using Calo.Domain.Entities.MetabolicRate;
 using Calo.Feature.MetabolicRate.Helpers;
 using Calo.Feature.MetabolicRate.Models;
 using Calo.Feature.MetabolicRate.Services;
@@ -68,7 +69,9 @@ namespace Calo.Feature.MetabolicRate.Commands
 
                 if (metabolicRate != null)
                 {
-                    return new RequestStatus(false, "MetabolicRate exist");
+                    metabolicRate.SetIsActive(false);
+                    metabolicRate.SetModifiedDate();
+                    this.dbContext.Update(metabolicRate);
                 }
 
                 var newMetabolicRate = this.CreateMetabolicRate(request);
@@ -78,21 +81,19 @@ namespace Calo.Feature.MetabolicRate.Commands
                 return new RequestStatus(true, "Updated MetabolicRate");
             }
 
-            private Core.Entities.MetabolicRate CreateMetabolicRate(Command command)
+            private Domain.Entities.MetabolicRate.MetabolicRate CreateMetabolicRate(Command command)
             {
                 var bmr = this.metabolicRateService.CalculateBMR(command.Gender, command.Formula, command.Weight, command.Growth, command.Age);
-                return new Core.Entities.MetabolicRate
-                {
-                    CreatedDate = DateTime.Now,
-                    Age = command.Age,
-                    Gender = command.Gender,
-                    Growth = command.Growth,
-                    Weight = command.Weight,
-                    UserId = command.UserId,
-                    Formula = command.Formula,
-                    BasalMetabolicRate = bmr,
-                    ActiveMetabolicRate = this.metabolicRateService.CalculateAMR(bmr, command.Activity)
-                };
+                return new Domain.Entities.MetabolicRate.MetabolicRate(
+                    command.Gender,
+                    command.Activity,
+                    command.Formula,
+                    command.Weight,
+                    command.Growth,
+                    command.Age,
+                    bmr,
+                    this.metabolicRateService.CalculateAMR(bmr, command.Activity),
+                    command.UserId);
             }
         }
     }

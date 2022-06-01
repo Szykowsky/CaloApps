@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Calo.Domain.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Calo.Core.Entities
 {

@@ -1,4 +1,5 @@
 ﻿using Calo.Core.Entities;
+using Calo.Domain.Entities.MetabolicRate;
 using Microsoft.EntityFrameworkCore;
 
 namespace Calo.Data

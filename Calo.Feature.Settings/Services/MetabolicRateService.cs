@@ -1,5 +1,6 @@
 ﻿
 using Calo.Core.Entities;
+using Calo.Domain.Entities.MetabolicRate;
 
 namespace Calo.Feature.MetabolicRate.Services
 {
