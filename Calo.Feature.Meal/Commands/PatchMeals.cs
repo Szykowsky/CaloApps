@@ -47,14 +47,7 @@ namespace Calo.Feature.Meals.Commands
 
                 request.PatchMealsModel.ApplyTo(mealPatchListModel);
 
-                var mealsResult = mealPatchListModel.Select(x => new Meal
-                {
-                    Id = x.Value.Id,
-                    Name = x.Value.Name,
-                    Date = x.Value.Date,
-                    Kcal = x.Value.Kcal,
-                    DietId = x.Value.DietId,
-                }).ToList();
+                var mealsResult = mealPatchListModel.Select(x => new Meal(x.Value.Id, x.Value.Kcal, x.Value.Name, x.Value.Date, x.Value.DietId)).ToList();
 
                 this.dbContext.Meals.UpdateRange(mealsResult);
                 await this.dbContext.SaveChangesAsync(cancellationToken);

@@ -13,6 +13,7 @@ namespace Calo.Feature.Meals.Models
 
         public class CreateOrUpdate : Basic
         {
+            public Guid UserId { get; set; }
             public Guid DietId { get; set; }
         }
 
