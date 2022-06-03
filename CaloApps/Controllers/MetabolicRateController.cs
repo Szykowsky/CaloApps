@@ -37,5 +37,23 @@ namespace Calo.API.Controllers
             });
             return Ok(result);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateMetabolicRate([FromBody] MetabolicRateModel.UpdateModel model)
+        {
+            var result = await this.mediator.Send(new UpdateMetabolicRate.Command
+            {
+                Id = model.Id,
+                Age = model.Age,
+                Weight = model.Weight,
+                Gender = model.Gender,
+                Growth = model.Growth,
+                Activity = model.Activity,
+                Formula = model.Formula,
+                UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            });
+
+            return Ok(result);
+        }
     }
 }

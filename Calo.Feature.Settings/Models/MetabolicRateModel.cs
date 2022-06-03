@@ -20,8 +20,14 @@ namespace Calo.Feature.MetabolicRate.Models
             public Formula Formula { get; set; }
         }
 
-        public class CreateOrUpdateModel : BaseModel
+        public class CreateModel : BaseModel
         {
+            public Guid UserId { get; set; }
+        }
+
+        public class UpdateModel : BaseModel
+        {
+            public Guid Id { get; set; }
             public Guid UserId { get; set; }
         }
     }

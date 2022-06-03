@@ -1,24 +1,16 @@
-﻿using Calo.Core.Entities;
-using Calo.Core.Models;
+﻿using Calo.Core.Models;
 using Calo.Data;
-using Calo.Domain.Entities.MetabolicRate;
-using Calo.Feature.MetabolicRate.CommonValidators;
 using Calo.Feature.MetabolicRate.Helpers;
 using Calo.Feature.MetabolicRate.Models;
 using Calo.Feature.MetabolicRate.Services;
 using FluentValidation;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calo.Feature.MetabolicRate.Commands
 {
     public class CreateMetabolicRate
     {
-        public class Command : MetabolicRateModel.CreateOrUpdateModel,  IRequest<RequestStatus>
+        public class Command : MetabolicRateModel.CreateModel,  IRequest<RequestStatus>
         {
 
         }

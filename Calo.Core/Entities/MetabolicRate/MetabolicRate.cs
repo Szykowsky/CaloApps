@@ -33,6 +33,7 @@ namespace Calo.Domain.Entities.MetabolicRate
             bool isActive = true)
         {
             this.UserId = userId;
+            this.CreatedDate = DateTime.Now;
             this.Update(gender, activity, formula, weight, growth, age, basalMetabolicRate, activeMetabolicRate, isActive);
         }
 
@@ -56,7 +57,7 @@ namespace Calo.Domain.Entities.MetabolicRate
             this.BasalMetabolicRate = basalMetabolicRate;
             this.ActiveMetabolicRate = activeMetabolicRate;
             this.IsActive = isActive;
-            this.CreatedDate = DateTime.Now;
+            this.ModifiedDate = DateTime.Now;
         }
 
         public void SetIsActive(bool isActive)
