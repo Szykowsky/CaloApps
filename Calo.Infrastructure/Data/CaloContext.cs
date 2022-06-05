@@ -1,4 +1,5 @@
 ﻿using Calo.Core.Entities;
+using Calo.Domain.Entities;
 using Calo.Domain.Entities.MetabolicRate;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ namespace Calo.Data
         public virtual DbSet<Meal> Meals { get; set; }
         public virtual DbSet<Diet> Diets { get; set; }
         public virtual DbSet<MetabolicRate> MetabolicRate { get; set; }
+        public virtual DbSet<DailyStatus> DailyStatuses { get; set; }
 
         public CaloContext(DbContextOptions<CaloContext> options) : base(options) { }
 
@@ -29,6 +31,8 @@ namespace Calo.Data
                 meal.HasKey(t => t.Id);
                 meal.Property(t => t.Id).ValueGeneratedOnAdd();
                 meal.HasOne(t => t.Diet).WithMany(x => x.Meals).HasForeignKey(t => t.DietId);
+                meal.HasOne(t => t.DailyStatus).WithMany(x => x.Meals).HasForeignKey(t => t.DailyStatusId);
+                meal.Property(t => t.DailyStatusId).HasDefaultValue(null);
             });
 
             modelBuilder.Entity<Diet>(diet =>
@@ -53,6 +57,13 @@ namespace Calo.Data
                         v => v.ToString(),
                         v => (Formula)Enum.Parse(typeof(Formula), v));
                 metabolicRate.Property(t => t.IsActive).HasDefaultValue(true);
+            });
+
+            modelBuilder.Entity<DailyStatus>(dailyStatus =>
+            {
+                dailyStatus.HasKey(t => t.Id);
+                dailyStatus.Property(t => t.Id).ValueGeneratedNever();
+                dailyStatus.HasOne(t => t.User).WithMany().HasForeignKey(t => t.UserId);
             });
         }
     }

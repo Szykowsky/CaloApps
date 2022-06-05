@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.MetabolicRate"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calo.Feature.Worksheet", "Calo.Feature.Worksheet\Calo.Feature.Worksheet.csproj", "{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{E53173D7-2461-42CD-9C20-25F2AB1417DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calo.Azure.Function.SetDailyStatus", "Calo.Azure.Function.CheckAvailabilityDayCalories\Calo.Azure.Function.SetDailyStatus.csproj", "{27AD2480-3645-41D9-8EA8-96226ABC52B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,10 @@ Global
 		{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27AD2480-3645-41D9-8EA8-96226ABC52B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27AD2480-3645-41D9-8EA8-96226ABC52B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27AD2480-3645-41D9-8EA8-96226ABC52B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27AD2480-3645-41D9-8EA8-96226ABC52B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +84,7 @@ Global
 		{35643496-B2D0-4DE6-8063-F625276EC992} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
 		{3690758F-1F15-40E3-A97F-A4329C15D698} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
 		{24B85EE3-A62D-46E1-8464-E8FEB29EEB6B} = {1A110E8F-DE09-4F52-B198-84D3679FBA3A}
+		{27AD2480-3645-41D9-8EA8-96226ABC52B9} = {E53173D7-2461-42CD-9C20-25F2AB1417DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18A2AC86-404C-4C8C-97FB-8ACB07DC9667}

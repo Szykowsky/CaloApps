@@ -17,6 +17,6 @@ namespace Calo.Core.Entities
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        public IList<Meal> Meals { get; set; }
+        public virtual IList<Meal> Meals { get; set; }
     }
 }

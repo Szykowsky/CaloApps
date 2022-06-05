@@ -1,4 +1,5 @@
 ﻿using Calo.Domain.Base;
+using Calo.Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Calo.Core.Entities
@@ -9,9 +10,13 @@ namespace Calo.Core.Entities
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public Guid DietId { get; set; }
+        public Guid? DailyStatusId { get; set; }
 
         [ForeignKey("DietId")]
         public virtual Diet Diet { get; set; }
+
+        [ForeignKey("DailyStatusId")]
+        public virtual DailyStatus? DailyStatus { get; set; }
 
         public Meal()
         {
@@ -39,5 +44,10 @@ namespace Calo.Core.Entities
             this.ModifiedDate = DateTime.Now;
         }
 
+        public void UpdateDailyStatusId(Guid dailyStatusId)
+        {
+            this.DailyStatusId = dailyStatusId;
+            this.SetModifiedDate();
+        }
     }
 }
