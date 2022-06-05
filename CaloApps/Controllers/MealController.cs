@@ -28,7 +28,7 @@ namespace CaloApps.Controllers
         public async Task<IActionResult> AddMealAsync([FromBody] MealModels.CreateOrUpdate model)
         {
             var result = await this.mediator.Send(new AddMeal.Command
-            { 
+            {
                 DietId = model.DietId,
                 Date = model.Date,
                 Kcal = model.Kcal,
@@ -39,19 +39,17 @@ namespace CaloApps.Controllers
         }
 
         [HttpGet("{dietId}")]
-        public async Task<IActionResult> GetMeals([FromRoute] Guid dietId, [FromQuery] MealModels.DateType? dateType, int? dayNumber, int? monthNumber)
+        public async Task<IActionResult> GetMeals([FromRoute] Guid dietId, [FromQuery] int? dayNumber, int? monthNumber)
         {
-            var mealSearchModel = dateType == null || dateType == MealModels.DateType.None ? null
-                : new MealModels.Filter
-                {
-                    DateType = dateType,
-                    DayNumber = dayNumber,
-                    MonthNumber = monthNumber,
-                };
+            var mealSearchModel = new MealModels.Filter
+            {
+                DayNumber = dayNumber,
+                MonthNumber = monthNumber,
+            };
 
-            var result = await this.mediator.Send(new GetMeals.Query 
-            { 
-                DietId = dietId, 
+            var result = await this.mediator.Send(new GetMeals.Query
+            {
+                DietId = dietId,
                 MealsFilterModel = mealSearchModel,
                 UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             });

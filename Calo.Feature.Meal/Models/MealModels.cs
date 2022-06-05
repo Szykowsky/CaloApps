@@ -24,17 +24,8 @@ namespace Calo.Feature.Meals.Models
 
         public class Filter
         {
-            public DateType? DateType { get; set; }
             public int? DayNumber { get; set; }
             public int? MonthNumber { get; set; }
-        }
-
-        public enum DateType
-        {
-            None,
-            Day,
-            Month,
-            DayMonth
         }
     }
 }

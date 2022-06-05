@@ -36,9 +36,6 @@ namespace Calo.Feature.Meals.Queries
 
                 When(x => x.MealsFilterModel != null, () =>
                 {
-                    RuleFor(z => z.MealsFilterModel.DateType)
-                        .NotNull()
-                        .WithMessage(ErrorMessage.NotNullDateType);
                     RuleFor(z => z.MealsFilterModel.DayNumber)
                         .InclusiveBetween(1, 31)
                         .WithMessage(ErrorMessage.DateNumberRange);
@@ -60,24 +57,18 @@ namespace Calo.Feature.Meals.Queries
 
             public async Task<QueryMealsResult> Handle(Query request, CancellationToken cancellationToken)
             {
-                var meals = this.dbContext.Meals
+                return await this.dbContext.Meals
                     .OrderBy(m => m.Date)
                     .Where(m => m.DietId == request.DietId && m.Diet.UserId == request.UserId)
-                    .AsQueryable();
-
-                if(request.MealsFilterModel == null || request.MealsFilterModel.DateType == MealModels.DateType.None)
-                {
-                    return await meals
-                        .SelectMealDto()
-                        .GetPagedResult(1,10, cancellationToken);
-                }
-
-                meals = meals.GetMealsQueryFilter(request.MealsFilterModel);
-
-                return await meals
+                    .GetMealsQueryFilter(request.MealsFilterModel)
                     .SelectMealDto()
                     .GetPagedResult(1, 10, cancellationToken);
             }
+
+            private static bool IsFilterNull(MealModels.Filter? filter) => 
+                filter == null || 
+                filter.MonthNumber == null || 
+                filter.DayNumber == null;
         }
     }
 }
