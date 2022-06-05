@@ -27,14 +27,12 @@ namespace Calo.Feature.Users.Commands
         {
             private readonly CaloContext dbContext;
             private readonly ITokenService tokenService;
-            private readonly IPasswordService passwordService;
             private readonly AppSettings appSettings;
 
-            public Handler(CaloContext dbContext, ITokenService tokenService, IPasswordService passwordService, IOptions<AppSettings> appSettings)
+            public Handler(CaloContext dbContext, ITokenService tokenService, IOptions<AppSettings> appSettings)
             {
                 this.dbContext = dbContext;
                 this.tokenService = tokenService;
-                this.passwordService = passwordService;
                 this.appSettings = appSettings.Value;
             }
 
@@ -46,8 +44,8 @@ namespace Calo.Feature.Users.Commands
                     return null;
                 }
 
-                var passwordHash = this.passwordService.PreparePasswordHash(command.Password, user.Salt);
-                if (passwordHash != user.PasswordHash)
+                var isCorrectPassword = user.IsPasswordCorrect(command.Password, this.appSettings.Pepper);
+                if (!isCorrectPassword)
                 {
                     return null;
                 }
@@ -60,7 +58,7 @@ namespace Calo.Feature.Users.Commands
                 var accessToken = this.tokenService.GetToken(claims, this.appSettings.JWTSecurity.AccessTokenSecret, this.appSettings.JWTSecurity.AccessTokenExpiredTime);
                 var refreshToken = this.tokenService.GetToken(claims, this.appSettings.JWTSecurity.RefreshTokenSecret, this.appSettings.JWTSecurity.RefreshTokenExpiredTime);
 
-                user.RefreshToken = refreshToken;
+                user.UpdateRefreshToken(refreshToken);
                 this.dbContext.Update(user);
                 await this.dbContext.SaveChangesAsync(cancellationToken);
 

@@ -6,6 +6,7 @@ using Calo.Core.Models;
 using Calo.Feature.Users.Services;
 using FluentValidation;
 using Calo.Feature.Users.Helpers;
+using Microsoft.Extensions.Options;
 
 namespace Calo.Feature.Users.Commands
 {
@@ -45,12 +46,12 @@ namespace Calo.Feature.Users.Commands
         public class Handler : IRequestHandler<Command, CreateUserResult>
         {
             private readonly CaloContext dbContext;
-            private readonly IPasswordService passwordService;
+            private readonly AppSettings appSettings;
 
-            public Handler(CaloContext dbContext, IPasswordService passwordService)
+            public Handler(CaloContext dbContext, IOptions<AppSettings> appSettings)
             {
                 this.dbContext = dbContext;
-                this.passwordService = passwordService;
+                this.appSettings = appSettings.Value;
             }
 
             public async Task<CreateUserResult> Handle(Command command, CancellationToken cancellationToken)
@@ -64,17 +65,9 @@ namespace Calo.Feature.Users.Commands
                         RequestStatus = new RequestStatus(false, "User name already exists")
                     };
                 }
-
-                var salt = this.passwordService.GenerateSalt();
-                var passwordHash = this.passwordService.PreparePasswordHash(command.Password, salt);
-
-                var user = new User
-                {
-                    Login = command.Login,
-                    PasswordHash = passwordHash,
-                    Salt = salt,
-                    CreatedDate = DateTime.Now,
-                };
+                var user = new User(command.Login);
+                user.GenerateSalt();
+                user.SetPasswordHash(command.Password, this.appSettings.Pepper);
 
                 await this.dbContext.Users.AddAsync(user, cancellationToken);
                 await this.dbContext.SaveChangesAsync(cancellationToken);

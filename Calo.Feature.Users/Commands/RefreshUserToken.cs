@@ -51,7 +51,7 @@ namespace Calo.Feature.Users.Commands
                 var user = await this.dbContext.Users
                     .Where(x => x.Login == principal.Identity.Name)
                     .FirstOrDefaultAsync(cancellationToken);
-                if (user == null || user.RefreshToken != command.RefreshToken)
+                if (user == null || !user.IsRefreshTokenCorrect(command.RefreshToken))
                 {
                     return null;
                 }
@@ -70,7 +70,7 @@ namespace Calo.Feature.Users.Commands
                 var accessToken = this.tokenService.GetToken(claims, this.appSettings.JWTSecurity.AccessTokenSecret, this.appSettings.JWTSecurity.AccessTokenExpiredTime);
                 var refreshToken = this.tokenService.GetToken(claims, this.appSettings.JWTSecurity.RefreshTokenSecret, this.appSettings.JWTSecurity.RefreshTokenExpiredTime);
 
-                user.RefreshToken = refreshToken;
+                user.UpdateRefreshToken(refreshToken);
                 this.dbContext.Update(user);
                 await this.dbContext.SaveChangesAsync(cancellationToken);
 
