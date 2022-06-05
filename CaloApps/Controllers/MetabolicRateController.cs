@@ -1,5 +1,6 @@
 ﻿using Calo.Feature.MetabolicRate.Commands;
 using Calo.Feature.MetabolicRate.Models;
+using Calo.Feature.MetabolicRate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,8 +23,19 @@ namespace Calo.API.Controllers
             this.httpContextAccessor = httpContextAccessor;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetMetabolicRate()
+        {
+            var result = await this.mediator.Send(new GetMetabolicRate.Query
+            {
+                UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            });
+
+            return Ok(result);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> MetabolicRate([FromBody] MetabolicRateModel.BaseModel model)
+        public async Task<IActionResult> CreateMetabolicRate([FromBody] MetabolicRateModel.BaseModel model)
         {
             var result = await this.mediator.Send(new CreateMetabolicRate.Command
             {

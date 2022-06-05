@@ -30,5 +30,10 @@ namespace Calo.Feature.MetabolicRate.Models
             public Guid Id { get; set; }
             public Guid UserId { get; set; }
         }
+
+        public class Dto : BaseModel
+        {
+            public Guid Id { get; set; }
+        }
     }
 }
