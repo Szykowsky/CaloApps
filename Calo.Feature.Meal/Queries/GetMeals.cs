@@ -64,11 +64,6 @@ namespace Calo.Feature.Meals.Queries
                     .SelectMealDto()
                     .GetPagedResult(1, 10, cancellationToken);
             }
-
-            private static bool IsFilterNull(MealModels.Filter? filter) => 
-                filter == null || 
-                filter.MonthNumber == null || 
-                filter.DayNumber == null;
         }
     }
 }
