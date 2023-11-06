@@ -11,6 +11,11 @@ namespace Calo.Feature.Meals.Models
             public DateTime Date { get; set; }
         }
 
+        public class RequestAdd : Basic
+        {
+            public Guid DietId { get; set; }
+        }
+
         public class CreateOrUpdate : Basic
         {
             public Guid UserId { get; set; }

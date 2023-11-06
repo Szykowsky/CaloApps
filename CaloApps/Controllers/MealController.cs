@@ -25,7 +25,7 @@ namespace CaloApps.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMealAsync([FromBody] MealModels.CreateOrUpdate model)
+        public async Task<IActionResult> AddMealAsync([FromBody] MealModels.RequestAdd model)
         {
             var result = await this.mediator.Send(new AddMeal.Command
             {
@@ -57,7 +57,10 @@ namespace CaloApps.Controllers
         }
 
         [HttpPatch("{dietId}")]
-        public async Task<IActionResult> PatchMeals([FromRoute] Guid dietId, [FromBody] JsonPatchDocument<IDictionary<Guid, MealModels.CreateOrUpdate>> patchDocument)
+        public async Task<IActionResult> PatchMeals(
+            [FromRoute] Guid dietId,
+            [FromBody] JsonPatchDocument<IDictionary<Guid,
+                MealModels.CreateOrUpdate>> patchDocument)
         {
             var result = await this.mediator.Send(new PatchMeals.Command
             {

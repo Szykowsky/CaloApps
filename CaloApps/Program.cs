@@ -89,8 +89,8 @@ builder.Services.AddAuthentication(options =>
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
 
-            ValidIssuer = "https://localhost:44323", // TODO move to gonfiguration
-            ValidAudience = "https://localhost:44323", // TODO move to gonfiguration
+            ValidIssuer = "https://localhost:7095", // TODO move to gonfiguration
+            ValidAudience = "https://localhost:7095", // TODO move to gonfiguration
             IssuerSigningKey = new SymmetricSecurityKey(key),
             ClockSkew = TimeSpan.Zero
         };

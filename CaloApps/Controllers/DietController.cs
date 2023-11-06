@@ -40,6 +40,16 @@ namespace CaloApps.Controllers
             return Ok(result);
         }
 
+        [HttpPost("ByMetabolicRate")]
+        public async Task<IActionResult> CreateDietByMetabolicAsync()
+        {
+            var result = await this.mediator.Send(new PrepareDietByMetabolicRate.Command
+            {
+                UserId = Guid.Parse(this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            });
+            return Ok(result);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetDietsAsync()
         {
