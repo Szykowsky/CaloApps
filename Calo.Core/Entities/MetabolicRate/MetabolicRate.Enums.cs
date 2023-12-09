@@ -4,26 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calo.Domain.Entities.MetabolicRate
+namespace Calo.Domain.Entities.MetabolicRate;
+
+public enum Gender
 {
-    public enum Gender
-    {
-        Male,
-        Female
-    }
+    Male,
+    Female
+}
 
-    public enum Activity
-    {
-        Sedentary,
-        LightlyActive,
-        ModeratelyActive,
-        Active,
-        VeryActive
-    }
+public enum Activity
+{
+    Sedentary,
+    LightlyActive,
+    ModeratelyActive,
+    Active,
+    VeryActive
+}
 
-    public enum Formula
-    {
-        HarrisBenedict,
-        MifflinStJeor
-    }
+public enum Formula
+{
+    HarrisBenedict,
+    MifflinStJeor
 }

@@ -1,8 +1,7 @@
-﻿namespace Calo.Feature.Users.Services
+﻿namespace Calo.Feature.Users.Services;
+
+public interface IPasswordService
 {
-    public interface IPasswordService
-    {
-        public string PreparePasswordHash(string password, string salt);
-        public string GenerateSalt();
-    }
+    public string PreparePasswordHash(string password, string salt);
+    public string GenerateSalt();
 }

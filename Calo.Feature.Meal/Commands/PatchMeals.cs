@@ -5,59 +5,58 @@ using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 
-namespace Calo.Feature.Meals.Commands
+namespace Calo.Feature.Meals.Commands;
+
+public class PatchMeals
 {
-    public class PatchMeals
+    public class Command : IRequest<PatchMealsResult>
     {
-        public class Command : IRequest<PatchMealsResult>
+        public Guid DietId { get; set; }
+        public Guid UserId { get; set; }
+        public JsonPatchDocument<IDictionary<Guid, MealModels.CreateOrUpdate>> PatchMealsModel { get; set; }
+    }
+
+    public class PatchMealsResult
+    {
+        public bool Success { get; set; }
+    }
+
+    public class Handler : IRequestHandler<Command, PatchMealsResult>
+    {
+        private readonly CaloContext dbContext;
+
+        public Handler(CaloContext dbContext)
         {
-            public Guid DietId { get; set; }
-            public Guid UserId { get; set; }
-            public JsonPatchDocument<IDictionary<Guid, MealModels.CreateOrUpdate>> PatchMealsModel { get; set; }
+            this.dbContext = dbContext;
         }
-
-        public class PatchMealsResult
+        public async Task<PatchMealsResult> Handle(Command request, CancellationToken cancellationToken)
         {
-            public bool Success { get; set; }
-        }
+            var meals = await this.dbContext.Meals
+                .Where(x => x.DietId == request.DietId && x.Diet.UserId == request.UserId)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
 
-        public class Handler : IRequestHandler<Command, PatchMealsResult>
-        {
-            private readonly CaloContext dbContext;
-
-            public Handler(CaloContext dbContext)
+            var mealPatchListModel = meals.Select(x => new MealModels.CreateOrUpdate
             {
-                this.dbContext = dbContext;
-            }
-            public async Task<PatchMealsResult> Handle(Command request, CancellationToken cancellationToken)
+                DietId = x.DietId,
+                Date = x.Date,
+                Kcal = x.Kcal,
+                Name = x.Name,
+                Id = x.Id,
+            }).ToDictionary(x => x.Id);
+
+            request.PatchMealsModel.ApplyTo(mealPatchListModel);
+
+            var mealsResult = mealPatchListModel.Select(x => new Meal(x.Value.Id, x.Value.Kcal, x.Value.Name, x.Value.Date, x.Value.DietId)).ToList();
+
+            this.dbContext.Meals.UpdateRange(mealsResult);
+            await this.dbContext.SaveChangesAsync(cancellationToken);
+
+            return new PatchMealsResult
             {
-                var meals = await this.dbContext.Meals
-                    .Where(x => x.DietId == request.DietId && x.Diet.UserId == request.UserId)
-                    .AsNoTracking()
-                    .ToListAsync(cancellationToken);
-
-                var mealPatchListModel = meals.Select(x => new MealModels.CreateOrUpdate
-                {
-                    DietId = x.DietId,
-                    Date = x.Date,
-                    Kcal = x.Kcal,
-                    Name = x.Name,
-                    Id = x.Id,
-                }).ToDictionary(x => x.Id);
-
-                request.PatchMealsModel.ApplyTo(mealPatchListModel);
-
-                var mealsResult = mealPatchListModel.Select(x => new Meal(x.Value.Id, x.Value.Kcal, x.Value.Name, x.Value.Date, x.Value.DietId)).ToList();
-
-                this.dbContext.Meals.UpdateRange(mealsResult);
-                await this.dbContext.SaveChangesAsync(cancellationToken);
-
-                return new PatchMealsResult
-                {
-                    Success = true,
-                };
-            }
-
+                Success = true,
+            };
         }
+
     }
 }

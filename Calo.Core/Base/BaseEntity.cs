@@ -1,21 +1,20 @@
 ﻿
-namespace Calo.Domain.Base
+namespace Calo.Domain.Base;
+
+public class BaseEntity
 {
-    public class BaseEntity
+    public Guid Id { get; set; }
+    public DateTime CreatedDate { get; set; }
+
+    public DateTime ModifiedDate { get; set; }
+
+    public BaseEntity()
     {
-        public Guid Id { get; set; }
-        public DateTime CreatedDate { get; set; }
+        this.SetModifiedDate();
+    }
 
-        public DateTime ModifiedDate { get; set; }
-
-        public BaseEntity()
-        {
-            this.SetModifiedDate();
-        }
-
-        public void SetModifiedDate()
-        {
-            this.ModifiedDate = DateTime.Now;
-        }
+    public void SetModifiedDate()
+    {
+        this.ModifiedDate = DateTime.Now;
     }
 }

@@ -2,16 +2,15 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Calo.Feature.Diets
+namespace Calo.Feature.Diets;
+
+public static class DietsMediatRDependencies
 {
-    public static class DietsMediatRDependencies
+    public static IServiceCollection RegisterRequestDietsHandlers(
+        this IServiceCollection services)
     {
-        public static IServiceCollection RegisterRequestDietsHandlers(
-            this IServiceCollection services)
-        {
-            return services
-                .AddMediatR(typeof(DietsMediatRDependencies).Assembly)
-                .AddValidatorsFromAssembly(typeof(DietsMediatRDependencies).Assembly);
-        }
+        return services
+            .AddMediatR(typeof(DietsMediatRDependencies).Assembly)
+            .AddValidatorsFromAssembly(typeof(DietsMediatRDependencies).Assembly);
     }
 }

@@ -5,74 +5,68 @@ using Calo.Feature.MetabolicRate.Models;
 using Calo.Feature.MetabolicRate.Services;
 using FluentValidation;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Calo.Feature.MetabolicRate.Commands
+namespace Calo.Feature.MetabolicRate.Commands;
+
+public class UpdateMetabolicRate
 {
-    public class UpdateMetabolicRate
+    public class Command : MetabolicRateModel.UpdateModel, IRequest<RequestStatus>
     {
-        public class Command : MetabolicRateModel.UpdateModel, IRequest<RequestStatus>
-        {
 
+    }
+
+    public class CreateMetabolicRateValidator : AbstractValidator<Command>
+    {
+        public CreateMetabolicRateValidator()
+        {
+            RuleFor(x => x.Id)
+                .NotEmpty()
+                .NotNull()
+                .WithMessage(ErrorMessages.IdNotNull);
+
+            RuleFor(x => x.Weight)
+                .GreaterThan(0)
+                .WithMessage(x => ErrorMessages.PrepareMessage(nameof(x.Weight), "0"));
+
+            RuleFor(x => x.Growth)
+                .GreaterThan(0)
+                .WithMessage(x => ErrorMessages.PrepareMessage(nameof(x.Growth), "0"));
+
+            RuleFor(x => x.Age)
+                .GreaterThan(18)
+                .WithMessage(x => ErrorMessages.PrepareMessage(nameof(x.Age), "18"));
         }
 
-        public class CreateMetabolicRateValidator : AbstractValidator<Command>
+        public class Handler : IRequestHandler<Command, RequestStatus>
         {
-            public CreateMetabolicRateValidator()
+            private readonly CaloContext dbContext;
+            private readonly IMetabolicRateService metabolicRateService;
+
+            public Handler(CaloContext dbContext, IMetabolicRateService metabolicRateService)
             {
-                RuleFor(x => x.Id)
-                    .NotEmpty()
-                    .NotNull()
-                    .WithMessage(ErrorMessages.IdNotNull);
-
-                RuleFor(x => x.Weight)
-                    .GreaterThan(0)
-                    .WithMessage(x => ErrorMessages.PrepareMessage(nameof(x.Weight), "0"));
-
-                RuleFor(x => x.Growth)
-                    .GreaterThan(0)
-                    .WithMessage(x => ErrorMessages.PrepareMessage(nameof(x.Growth), "0"));
-
-                RuleFor(x => x.Age)
-                    .GreaterThan(18)
-                    .WithMessage(x => ErrorMessages.PrepareMessage(nameof(x.Age), "18"));
+                this.dbContext = dbContext;
+                this.metabolicRateService = metabolicRateService;
             }
 
-            public class Handler : IRequestHandler<Command, RequestStatus>
+            public async Task<RequestStatus> Handle(Command request, CancellationToken cancellationToken)
             {
-                private readonly CaloContext dbContext;
-                private readonly IMetabolicRateService metabolicRateService;
+                var metabolicRate = this.dbContext.MetabolicRate
+                    .Where(x => x.UserId == request.UserId && x.Id == request.Id)
+                    .FirstOrDefault();
 
-                public Handler(CaloContext dbContext, IMetabolicRateService metabolicRateService)
+                if (metabolicRate == null)
                 {
-                    this.dbContext = dbContext;
-                    this.metabolicRateService = metabolicRateService;
+                    return new RequestStatus(false, "Metbolic rate do not exist");
                 }
 
-                public async Task<RequestStatus> Handle(Command request, CancellationToken cancellationToken)
-                {
-                    var metabolicRate = this.dbContext.MetabolicRate
-                        .Where(x => x.UserId == request.UserId && x.Id == request.Id)
-                        .FirstOrDefault();
+                var bmr = this.metabolicRateService.CalculateBMR(request.Gender, request.Formula, request.Weight, request.Growth, request.Age);
+                var amr = this.metabolicRateService.CalculateAMR(bmr, request.Activity);
+                metabolicRate.Update(request.Gender, request.Activity, request.Formula, request.Weight, request.Growth, request.Age, bmr, amr);
 
-                    if (metabolicRate == null)
-                    {
-                        return new RequestStatus(false, "Metbolic rate do not exist");
-                    }
+                this.dbContext.Update(metabolicRate);
+                await this.dbContext.SaveChangesAsync(cancellationToken);
 
-                    var bmr = this.metabolicRateService.CalculateBMR(request.Gender, request.Formula, request.Weight, request.Growth, request.Age);
-                    var amr = this.metabolicRateService.CalculateAMR(bmr, request.Activity);
-                    metabolicRate.Update(request.Gender, request.Activity, request.Formula, request.Weight, request.Growth, request.Age, bmr, amr);
-
-                    this.dbContext.Update(metabolicRate);
-                    await this.dbContext.SaveChangesAsync(cancellationToken);
-
-                    return new RequestStatus(true, "Updated MetabolicRate");
-                }
+                return new RequestStatus(true, "Updated MetabolicRate");
             }
         }
     }

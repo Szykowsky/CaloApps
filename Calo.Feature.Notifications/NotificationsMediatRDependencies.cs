@@ -2,16 +2,15 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Calo.Feature.Notifications
+namespace Calo.Feature.Notifications;
+
+public static class NotificationsMediatRDependencies
 {
-    public static class NotificationsMediatRDependencies
+    public static IServiceCollection RegisterRequestNotificationsHandlers(
+        this IServiceCollection services)
     {
-        public static IServiceCollection RegisterRequestNotificationsHandlers(
-            this IServiceCollection services)
-        {
-            return services
-                .AddMediatR(typeof(NotificationsMediatRDependencies).Assembly)
-                .AddValidatorsFromAssembly(typeof(NotificationsMediatRDependencies).Assembly);
-        }
+        return services
+            .AddMediatR(typeof(NotificationsMediatRDependencies).Assembly)
+            .AddValidatorsFromAssembly(typeof(NotificationsMediatRDependencies).Assembly);
     }
 }

@@ -20,6 +20,18 @@ namespace CaloApps.Controllers
             this.httpContextAccessor = httpContextAccessor;
         }
 
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchUser([FromQuery] string login)
+        {
+            var result = await this.mediator.Send(createUserCommand);
+            if (!result.RequestStatus.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost("create")]
         [AllowAnonymous]
         public async Task<IActionResult> CreateUser([FromBody] CreateUser.Command createUserCommand)

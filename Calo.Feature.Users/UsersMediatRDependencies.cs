@@ -2,16 +2,15 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Calo.Feature.Users
+namespace Calo.Feature.Users;
+
+public static class UsersMediatRDependencies
 {
-    public static class UsersMediatRDependencies
+    public static IServiceCollection RegisterRequestUsersHandlers(
+        this IServiceCollection services)
     {
-        public static IServiceCollection RegisterRequestUsersHandlers(
-            this IServiceCollection services)
-        {
-            return services
-                .AddMediatR(typeof(UsersMediatRDependencies).Assembly)
-                .AddValidatorsFromAssembly(typeof(UsersMediatRDependencies).Assembly); ;
-        }
+        return services
+            .AddMediatR(typeof(UsersMediatRDependencies).Assembly)
+            .AddValidatorsFromAssembly(typeof(UsersMediatRDependencies).Assembly); ;
     }
 }

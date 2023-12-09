@@ -1,14 +1,13 @@
-﻿namespace Calo.Core.Models
-{
-    public class RequestStatus
-    {
-        public bool IsSuccess { get; set; }
-        public string? Message { get; set; }
+﻿namespace Calo.Core.Models;
 
-        public RequestStatus(bool isSuccess, string message)
-        {
-            IsSuccess = isSuccess;
-            Message = message;
-        }
+public class RequestStatus
+{
+    public bool IsSuccess { get; set; }
+    public string? Message { get; set; }
+
+    public RequestStatus(bool isSuccess, string message)
+    {
+        IsSuccess = isSuccess;
+        Message = message;
     }
 }
