@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
 using MediatR;
+using System.Reflection;
 
 namespace Calo.Feature.MetabolicRate;
 
@@ -10,7 +11,7 @@ public static class MetabolicRateMediatRDependencies
         this IServiceCollection services)
     {
         return services
-            .AddMediatR(typeof(MetabolicRateMediatRDependencies).Assembly)
+            .AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()))
             .AddValidatorsFromAssembly(typeof(MetabolicRateMediatRDependencies).Assembly);
     }
 }

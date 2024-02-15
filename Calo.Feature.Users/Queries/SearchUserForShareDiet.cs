@@ -35,8 +35,11 @@ namespace Calo.Feature.Users.Queries
                 this.dbContext = dbContext;
             }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
             public async Task<UserDtos.Base> Handle(Query request, CancellationToken cancellationToken)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
             {
+                return null;
             }
         }
     }

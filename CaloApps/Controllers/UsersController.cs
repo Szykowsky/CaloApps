@@ -23,13 +23,14 @@ namespace CaloApps.Controllers
         [HttpGet("search")]
         public async Task<IActionResult> SearchUser([FromQuery] string login)
         {
-            var result = await this.mediator.Send(createUserCommand);
-            if (!result.RequestStatus.IsSuccess)
-            {
-                return BadRequest(result);
-            }
+            //var result = await this.mediator.Send(createUserCommand);
+            //if (!result.RequestStatus.IsSuccess)
+            //{
+            //    return BadRequest(result);
+            //}
 
-            return Ok(result);
+            //return Ok(result);
+            return Ok();
         }
 
         [HttpPost("create")]
