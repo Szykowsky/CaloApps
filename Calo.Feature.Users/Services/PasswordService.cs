@@ -5,15 +5,10 @@ using System.Text;
 
 namespace Calo.Feature.Users.Services;
 
-public class PasswordService : IPasswordService
+public class PasswordService(IOptions<AppSettings> appSettings) : IPasswordService
 {
-    private readonly AppSettings appSettings;
+    private readonly AppSettings appSettings = appSettings.Value;
     private const int saltSize = 128 / 8; // 128 bits
-
-    public PasswordService(IOptions<AppSettings> appSettings)
-    {
-        this.appSettings = appSettings.Value;
-    }
 
     public string PreparePasswordHash(string password, string salt)
     {
